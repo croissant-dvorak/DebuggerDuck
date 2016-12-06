@@ -40,6 +40,7 @@ React-Modal-Bootstrap
 
 From within the root directory:
 
+=======
 
 $ npm install 
 (also runs gulp build).
