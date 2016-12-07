@@ -22,16 +22,11 @@ import Groups from './Groups.js';
 import VolunteerRequestsContainer from './VolunteerRequestsContainer.js';
 import GroupModal from './GroupModal';
 
-
+//Primary component for App.
 class Runner extends Component {
   constructor(props) {
     super(props);
-//For now, username, picture, currentGroup, groups are all hard coded in.
-//Eventually, we will get username and picture from fb
-//And groups from the DB
-//And currentGroup from selecting the button
-//I forgot to add the currentGroup functionality we can maybe render it in the request/volunteer container later, 
-//But right now, it does nothing
+//holds the logged in state, username, picture
     this.state = {
       loggedIn: false,
       username: '',
@@ -39,7 +34,7 @@ class Runner extends Component {
       currentGroup: '',
       userId: '',
       groups:[],
-      //currentData holds all volunteers and requests from day.
+      //currentData holds all volunteers and requests.
       currentData:[],
 
     };
@@ -50,13 +45,14 @@ class Runner extends Component {
     this.postLogout = this.postLogout.bind(this);
   }
 
-  ///Run getGroups and getCurrentData on component load.
+  ///Run functions on component load so data is available.
   componentDidMount() {
-    this.postLogin();
+   this.postLogin();
    this.getGroups();
    this.getCurrentData();
   }
 
+//Returns the mongo id for a given group name.
   getIdFromGroupName(name) {
     for (var i=0;i<this.state.groups.length;i++){
       if (this.state.groups[i].name===name){
@@ -66,6 +62,7 @@ class Runner extends Component {
       }
     }
   }
+  //Helper function to change Group.
   selectGroup(name){
     this.setState({currentGroup: name});
   }
@@ -74,6 +71,7 @@ class Runner extends Component {
     //this rerenders the app to go back to option 2 (mentioned above)
   }  
 
+//Adds a new group to DB.
   postGroup(groupName){
     //this.setState({groupChosen:true});
     axios.post('/api/group', {data:{"groupName":groupName}})
@@ -85,7 +83,7 @@ class Runner extends Component {
     });
   }
 
-  //Gets full list of available groups and updates state.
+//Gets full list of available groups and updates state.
   getGroups(){
     axios.get('/api/group')
       .then( response => {
@@ -110,6 +108,7 @@ class Runner extends Component {
       })
   }
 
+//Triggers FB login, then retrieves user info from DB/FB.
   getUserData(){
     axios.get('/api/user')
       .then(response => {
@@ -124,9 +123,7 @@ class Runner extends Component {
       })
   }
 
-  //postLogin sends login data to the server.
-    //Currently designed to get redirected to passport.  May need to be updated.
-    //In progress.
+//Checks server to confirm if user is already logged in.
   postLogin() {
     axios.get('/api/user/loggedin')
       .then(response => {
@@ -154,7 +151,7 @@ class Runner extends Component {
   }
 
   //postVolunteer POSTS a new volunteer to the server.
-    //Accepts a location, a time, and a username, all strings for simplicity.
+    //Accepts a location, a time, and group.  Pulls username from state.
   postVolunteer(location, time, group) {
     axios.post('/api/volunteer', {data:{
       username: this.state.username,
@@ -173,12 +170,12 @@ class Runner extends Component {
       console.log('Error while posting Volunteer: ',error);
     });
   }
-  // postRequest sends a food request to the server.
-  //   Accepts username of user requesting food
-  //     volunter == username of the volunteer,
-  //     food is from input box
-  //     All strings
 
+  // postRequest sends a food request to the server.
+  // volunteerId is the mongo db record for the volunteer (in the mongo Order table.)
+    //text is what the user requested.
+    //username for hte request is pulled from state.
+    
   postRequest(volunteerId, text) {
       axios.post('/api/request', {data:{
       //don't remove.  

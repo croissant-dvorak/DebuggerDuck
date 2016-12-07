@@ -40,6 +40,7 @@ class VolunteerRequestContainer extends Component {
     } else {
       //If there are already volunteers in the system for this particular group, render them.
       return ( 
+        //VolunteerModal pops up when you click the Volunteer Services button
      <div className='request-container'>
         <div>
           <VolunteerModal getDataForRendering={this.getDataForRendering.bind(this)} getCurrentData={this.props.getCurrentData} currentGroup={this.props.currentGroup} onSubmit={this.onSubmit.bind(this)} postVolunteer={this.props.postVolunteer} />
@@ -47,6 +48,7 @@ class VolunteerRequestContainer extends Component {
         </div>
         {this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup))
           .map(volunteer =>
+            //Render one Volunteer component for each current volunteer in a given group.
             <Volunteer 
             //I put math.random because react got angry at me
             postRequest={this.props.postRequest}

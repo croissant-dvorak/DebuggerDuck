@@ -25,26 +25,18 @@ class Volunteer extends Component {
     //every time the user types a new letter, the state is changed to the current input
     this.setState({text: event.target.value});
   }
-     //set the text back to '' and add the info to the requests array
-    //Note: for some reason, .push wouldn't work and I had to use .concat
-      //run postRequest to generate a new request.
+  //Run postRequest to send request data to the server.
+  //update text state to reset box.
+  //run getDataforRendering to update App (somewhat ugly, last-minute hack).
+  //update existing requests with new data from props.
   onSubmit(text){
-    console.log('Text?', text, "volunteer id", this.props.volunteer._id);
+    //console.log('Text?', text, "volunteer id", this.props.volunteer._id);
     this.props.postRequest(this.props.volunteer._id, text);
     this.setState({text:''});
     this.props.getDataForRendering();
     this.setState({requests:this.props.volunteer.requests})
   }
-  // getDataForRendering(){
-  //   return axios.get('/api/volunteer')
-  //     .then(response => {
-  //       console.log('This should rerender....');
-  //       this.setState({requests: response.data.data});
-  //     })
-  //     .catch(error => {
-  //       console.log('Error while getting current data: ', error);
-  //     })
-  // }
+
 
   render() {
   	return ( 
