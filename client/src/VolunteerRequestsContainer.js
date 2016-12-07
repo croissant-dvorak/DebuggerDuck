@@ -9,7 +9,6 @@ import VolunteerModal from './VolunteerModal'
 class VolunteerRequestContainer extends Component {
   constructor(props) {
     super(props);
-    console.log("Volunteer Props: ", props)
     this.state = {
       //this info was funneled down from app.js
       username: props.username,
@@ -19,11 +18,29 @@ class VolunteerRequestContainer extends Component {
 
   }
 
-  componentDidMount() { 
-  } 
   
   render() {
-    return ( 
+    //Because this.state.volunteers holds ALL the info for all groups and we only want to render the info relevent to the group,
+    //We create a variable called filteredVolunteers. Because the database needs the id of the group but we only hold
+    // the groups name, we had to pass down a function called getIdFromGroupName that returns the id.
+    //Once we have the id, we can use that information to filter through this.state.volunteers to only display the
+    //info from that particular group.
+    let filteredVolunteers=this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup));
+    //Here we check if no one has volunteered yet. If so, we render a div that tells the user that no one has volunteered yet.
+    //If they do volunteer, this.state.volunteer will change and the page will render immediately and will display their info.
+    if (filteredVolunteers.length===0){
+      return(
+        <div> 
+          <div>
+            <VolunteerModal getDataForRendering={this.getDataForRendering.bind(this)} getCurrentData={this.props.getCurrentData} currentGroup={this.props.currentGroup} onSubmit={this.onSubmit.bind(this)} postVolunteer={this.props.postVolunteer} />
+          </div>
+          <div className='no-requests center'>No one has volunteered to grab food yet. Why don't you go first?</div>
+          <div className='center'><button className='red-button new-group' onClick={this.props.selectDifferentGroup}>Select a different group</button></div>
+        </div>
+        )
+    } else {
+      //If there are already volunteers in the system for this particular group, render them.
+      return ( 
      <div className='request-container'>
         <div>
           <VolunteerModal getDataForRendering={this.getDataForRendering.bind(this)} getCurrentData={this.props.getCurrentData} currentGroup={this.props.currentGroup} onSubmit={this.onSubmit.bind(this)} postVolunteer={this.props.postVolunteer} />
@@ -44,12 +61,16 @@ class VolunteerRequestContainer extends Component {
         <div className='center'><button className='red-button new-group' onClick={this.props.selectDifferentGroup}>Select a different group</button></div>
      </div>
     );
+    }
   }
   
+  //We created this function because when we were posting data to the database, it wasn't automatically updating on the screen.
+  //Although our post requests were successful, the state was only changing in app.js.
+  //By creating this function, voluteerRequestContainer.js's state will also change, therefore rerendering everything in it.
+
    getDataForRendering(){
     return axios.get('/api/volunteer')
       .then(response => {
-        console.log('This should rerender....');
         this.setState({volunteers: response.data.data});
       })
       .catch(error => {
@@ -57,21 +78,9 @@ class VolunteerRequestContainer extends Component {
       })
   }
 
-  onLocationChange(event) {
-  	this.setState({location: event.target.value});
-  }
-
-  onTimeChange(event) {
-  	this.setState({time: event.target.value});
-  }
-  //Runs postVolunteer (inherited from App) with appropriate data, then resets state.
+  //This function will set the state of app.js
   onSubmit() {
-    console.log("THIS IS A GOOD THING")
-    //When the user clicks submit, time and location are set to '' and the info is saved into the this.state.volunteers array
-    //Change this later to add database functionality
   	this.props.getCurrentData();
-
-    //this.setState({volunteers: });
   }
   	
 };

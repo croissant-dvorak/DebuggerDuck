@@ -42,7 +42,7 @@ const OrderSchema = new Schema ({
 	time: String,
 	group_id: String,
 	picture: String,
-	requests: [{user_id: String, text: String}],
+	requests: [{user_id: String, picture: String, text: String}],
 	createdAt: { type : Date, default: Date.now }
 })
 

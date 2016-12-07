@@ -178,11 +178,11 @@ class Runner extends Component {
   //     All strings
 
   postRequest(volunteerId, text) {
-      console.log('Running postRequest', volunteerId, text);
       axios.post('/api/request', {data:{
       //don't remove.  
       username: this.state.username,
-      volunteerId: volunteerId, 
+      volunteerId: volunteerId,
+      picture: this.state.picture, 
       text: text,
 
       }

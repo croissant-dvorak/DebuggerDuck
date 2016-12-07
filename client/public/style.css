@@ -188,3 +188,8 @@
 .top-margin {
 	margin-top:20px;
 }
+.no-requests {
+	padding:10px;
+	margin:5px;
+	font-size:24px;
+}
