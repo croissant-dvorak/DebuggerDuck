@@ -17,7 +17,6 @@ class VolunteerRequestContainer extends Component {
     };
 
   }
-
   
   render() {
     //Because this.state.volunteers holds ALL the info for all groups and we only want to render the info relevent to the group,
@@ -41,12 +40,15 @@ class VolunteerRequestContainer extends Component {
     } else {
       //If there are already volunteers in the system for this particular group, render them.
       return ( 
+        //VolunteerModal pops up when you click the Volunteer Services button
      <div className='request-container'>
         <div>
           <VolunteerModal getDataForRendering={this.getDataForRendering.bind(this)} getCurrentData={this.props.getCurrentData} currentGroup={this.props.currentGroup} onSubmit={this.onSubmit.bind(this)} postVolunteer={this.props.postVolunteer} />
+
         </div>
         {this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup))
           .map(volunteer =>
+            //Render one Volunteer component for each current volunteer in a given group.
             <Volunteer 
             //I put math.random because react got angry at me
             postRequest={this.props.postRequest}
@@ -81,6 +83,7 @@ class VolunteerRequestContainer extends Component {
   //This function will set the state of app.js
   onSubmit() {
   	this.props.getCurrentData();
+
   }
   	
 };

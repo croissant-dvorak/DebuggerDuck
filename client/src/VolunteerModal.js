@@ -66,7 +66,7 @@ class VolunteerModal extends React.Component {
     return (
         <div className='center'>
           <button className="red-button" onClick={this.openModal.bind(this)}>
-            Volunteer your services to the {this.props.currentGroup} group
+            Volunteer your services
           </button>
 
           <Modal isOpen={isOpen} onRequestHide={this.hideModal.bind(this)}>

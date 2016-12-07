@@ -40,6 +40,7 @@ React-Modal-Bootstrap
 
 From within the root directory:
 
+=======
 
 $ npm install 
 (also runs gulp build).
@@ -47,8 +48,6 @@ $ npm install
 
 ### Roadmap
 Known Issues:
-
-
 
 ### Room to Grow!
 Food Runner has several excellent avenues for growth.
@@ -68,6 +67,8 @@ Food Runner has several excellent avenues for growth.
     --Who wants to carry fifteen burritos and not eat them?
 6.  Vinmo integration
     -- https://venmo.com/
+7.  Only show requests from today
+    -- this was supposed to be in the MVP, but fell behind.  All records have a created date, so it can be implemented by updating the queries in router.
 
 
 ## Contributing
