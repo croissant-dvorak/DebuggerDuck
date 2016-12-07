@@ -34,17 +34,6 @@ class NavBar extends Component {
     this.props.postLogout();
   }
   render() { 
-    //This renders differently depending on whether logged in is true or false.
-    //If I manually change true or false, it renders fine. Currently, it isn't rerendering when app.js rerenders, and it should.
-  	if(this.state.loggedIn===false) {
-  		return (
-  			<div className='nav-bar'>
-    			<FacebookButton 
-          login={this.login.bind(this)} 
-          loggedIn={this.state.loggedIn} />
-    		</div>
-    	)
-  	} else {
   		return ( 
     	<div className='nav-bar'>
     		<FacebookButton 
@@ -56,7 +45,6 @@ class NavBar extends Component {
     	</div>
   		);
   	}
-  	}   
 };
 
 

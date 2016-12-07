@@ -29,6 +29,7 @@ class VolunteerModal extends React.Component {
   
   onSubmit (){
     this.props.onSubmit(this.state.location, this.state.time, this.props.currentGroup);
+    this.props.getCurrentData();
     this.setState({
       isOpen: false,
       time: '',

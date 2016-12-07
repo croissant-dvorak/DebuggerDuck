@@ -97,6 +97,7 @@
 	text-align: center;
 	font-size:30px;
 	margin-top:10px;
+	margin-bottom:10px;
 	position: relative;
 }
 .spacer {
@@ -183,4 +184,7 @@
 }
 .orange {
 	background-color:#FFC78F;
+}
+.top-margin {
+	margin-top:20px;
 }

@@ -22,7 +22,7 @@ class FacebookButton extends Component {
       } else{
         if (this.props.loggedIn===false){
           return (
-           <a 
+           <a
              //onClick={this.props.login}
              className='fb-button'
              href='/login'>

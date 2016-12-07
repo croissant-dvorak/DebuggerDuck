@@ -13,21 +13,19 @@ class VolunteerRequestContainer extends Component {
       //this info was funneled down from app.js
       username: this.props.username,
       picture: this.props.picture,
-      //This is currently hardcoded in, but eventually we want to retrieve this info from the database.
       volunteers:this.props.currentData,
     };
 
   }
 
   componentDidMount() { 
-    console.log('volunteers? ', this.state.volunteers);
   } 
   
   render() {
     return ( 
      <div className='request-container'>
         <div>
-          <VolunteerModal currentGroup={this.props.currentGroup} onSubmit={this.props.postVolunteer} />
+          <VolunteerModal getCurrentData={this.props.getCurrentData} currentGroup={this.props.currentGroup} onSubmit={this.props.postVolunteer} />
         </div>
         {this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup))
           .map(volunteer =>
@@ -35,9 +33,9 @@ class VolunteerRequestContainer extends Component {
             //I put math.random because react got angry at me
             postRequest={this.props.postRequest}
             key={Math.random()}
-            username={this.state.username}
+            username={volunteer.username}
             //commenting out picture for now
-            picture={this.state.picture}
+            picture={volunteer.picture}
             //This maps out the volunteers in the this.state.volunteers array into the child component, volunteer
             volunteer={volunteer}/>
           )}
