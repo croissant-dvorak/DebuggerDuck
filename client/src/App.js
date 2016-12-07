@@ -58,10 +58,8 @@ class Runner extends Component {
   }
 
   getIdFromGroupName(name) {
-    console.log('The number of groups:',this.state.groups.length)
     for (var i=0;i<this.state.groups.length;i++){
       if (this.state.groups[i].name===name){
-        console.log(this.state.groups[i]._id)
         return this.state.groups[i]._id;
       } else {
         console.log('Group Id not found')
@@ -111,6 +109,7 @@ class Runner extends Component {
         console.log('Error while getting current data: ', error);
       })
   }
+
   getUserData(){
     axios.get('/api/user')
       .then(response => {
@@ -161,6 +160,7 @@ class Runner extends Component {
       username: this.state.username,
       location: location,
       time:  time,
+      picture: this.state.picture,
       groupId: this.getIdFromGroupName(group)
       }
     })

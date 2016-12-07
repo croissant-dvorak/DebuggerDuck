@@ -91,6 +91,7 @@ module.exports = {
         order_user: req.body.data.username,
         location: req.body.data.location,
         time: req.body.data.time,
+        picture: req.body.data.picture,
         group_id: req.body.data.groupId,
         requests: req.body.data.requests
       }).save()

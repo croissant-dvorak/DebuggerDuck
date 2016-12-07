@@ -8,7 +8,7 @@ import RequestModal from './RequestModal.js';
 class Volunteer extends Component {
   constructor(props) {
     super(props);
-
+    console.log("Volunteer Props: ", props)
     this.state = {
       //This info has been funneled down from volunteerRequestContainer, which was funneled down from app.js
       username: this.props.username,
@@ -18,6 +18,7 @@ class Volunteer extends Component {
       //requests is an array of stuff obtained from the database. 
       //It can be added to by the user by typing into the inputs and submitting.
       requests:this.props.volunteer.requests,
+      count:0
     };
   }
   onTextChange(event) {
@@ -28,10 +29,22 @@ class Volunteer extends Component {
     //Note: for some reason, .push wouldn't work and I had to use .concat
       //run postRequest to generate a new request.
   onSubmit(text){
-    console.log('Text?', text);
-    this.props.postRequest(this.state.username, this.props.volunteer._id, text);
-    this.setState({text:'', requests: this.state.requests.concat({username: this.state.username, picture: this.state.picture, text: this.state.text})});
+    console.log('Text?', text, "volunteer id", this.props.volunteer._id);
+    this.props.postRequest(this.props.volunteer._id, text);
+    this.setState({text:''});
+    this.props.getDataForRendering();
+    this.setState({requests:this.props.volunteer.requests})
   }
+  // getDataForRendering(){
+  //   return axios.get('/api/volunteer')
+  //     .then(response => {
+  //       console.log('This should rerender....');
+  //       this.setState({requests: response.data.data});
+  //     })
+  //     .catch(error => {
+  //       console.log('Error while getting current data: ', error);
+  //     })
+  // }
 
   render() {
   	return ( 
