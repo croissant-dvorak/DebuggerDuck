@@ -70,6 +70,25 @@ Food Runner has several excellent avenues for growth.
 6.  Vinmo integration
     -- https://venmo.com/
 
+### Room to Grow!
+Food Runner has several excellent avenues for growth.
+1.  Karma -- Track and report how often people request and run for food.
+     -- The karma functionality is already built into the DB and NavBar. 
+     1a:  Create 'levels' of karma, with more helpful users earning fun titles.
+     1b:  Gamify Karma points.
+2.  Free food! -- Add another Component and button to the VolunteerRequestContainer to announce when there are  free nomz.
+3.  Drop-downs -- Our interaction is strictly text.
+     3a:  Add drop-downs for nearby restaurants.
+     3b:  Add drop-downs for quick menu choices.
+4.  Social -- Add the option to ask people to go with you to eat.
+    --Add check box to VolunteerModal
+    --Add some kind of icon to Volunteer Modal
+    --Update postVolunteer function to send to DB.
+5.  Max food orders -- Allow volunteers to set a limit on the number of requests they will accept.
+    --Who wants to carry fifteen burritos and not eat them?
+6.  Vinmo integration
+    -- https://venmo.com/
+
 
 ## Contributing
 
