@@ -17,7 +17,6 @@ class VolunteerRequestContainer extends Component {
     };
 
   }
-
   
   render() {
     //Because this.state.volunteers holds ALL the info for all groups and we only want to render the info relevent to the group,
@@ -44,6 +43,7 @@ class VolunteerRequestContainer extends Component {
      <div className='request-container'>
         <div>
           <VolunteerModal getDataForRendering={this.getDataForRendering.bind(this)} getCurrentData={this.props.getCurrentData} currentGroup={this.props.currentGroup} onSubmit={this.onSubmit.bind(this)} postVolunteer={this.props.postVolunteer} />
+
         </div>
         {this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup))
           .map(volunteer =>
@@ -81,6 +81,7 @@ class VolunteerRequestContainer extends Component {
   //This function will set the state of app.js
   onSubmit() {
   	this.props.getCurrentData();
+
   }
   	
 };

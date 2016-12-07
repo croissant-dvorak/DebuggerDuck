@@ -166,6 +166,8 @@ class Runner extends Component {
     })
     .then(response => {
       console.log('Volunteer posted! ',response);
+      this.getCurrentData();
+      this.render();
     })
     .catch(error => {
       console.log('Error while posting Volunteer: ',error);
@@ -254,6 +256,7 @@ class Runner extends Component {
               picture={this.state.picture}
               currentGroup={this.state.currentGroup}
               currentData={this.state.currentData}
+              getCurrentData={this.getCurrentData.bind(this)}
               postVolunteer={this.postVolunteer.bind(this)}
               postRequest={this.postRequest.bind(this)}
               getCurrentData={this.getCurrentData.bind(this)}
