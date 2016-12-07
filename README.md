@@ -69,6 +69,8 @@ Food Runner has several excellent avenues for growth.
     -- https://venmo.com/
 7.  Only show requests from today
     -- this was supposed to be in the MVP, but fell behind.  All records have a created date, so it can be implemented by updating the queries in router.
+    
+Note: Log out button works, but doesn't redirect to landing page. Go to '/api/user/logout' or https://food-runner.herokuapp.com/api/user/logout to log out.
 
 
 ## Contributing
