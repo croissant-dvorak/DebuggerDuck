@@ -15,6 +15,7 @@ const controller = require('./controller');
 
 router.get('/user', controller.user.get);
 router.get('/user/loggedin', controller.user.loggedIn);
+router.get('/user/logout', controller.user.logout);
 
 // Use the router to direct GET and POST requests for /group
 router.get('/group', controller.group.get);

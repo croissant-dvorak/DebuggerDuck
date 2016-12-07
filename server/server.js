@@ -37,7 +37,7 @@ if (process.env.server) {
           new db.User({
             username: profile.displayName,
             fb_id: profile.id,
-            picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=small',
+            picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal',
             groups: [{group_id: 2345}]
           }).save()
           .then((data) => {

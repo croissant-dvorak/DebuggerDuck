@@ -26,6 +26,10 @@ module.exports = {
       } else {
         res.send(false);
       }
+    },
+    logout: (req, res) => {
+      req.session.destroy();
+      res.redirect('/');
     }
   },
 
