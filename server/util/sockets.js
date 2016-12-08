@@ -1,5 +1,5 @@
 const socketio = require('socket.io')
-const stories = require('./controllers/storyController')
+const stories = require('./controller.js')
 
 module.exports.listen = function(http){
   io = socketio.listen(http)
