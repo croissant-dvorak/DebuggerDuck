@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: Robin Dykema
-  - __Scrum Master__: Johnny McDuff
-  - __Development Team Members__: Renata Maraj, Will Schwanke
+  - __Product Owner__: Hevi Kevi
+  - __Scrum Master__: Casey Billman
+  - __Development Team Members__: Bennett Staley, Carolyn Commons
 
 ## Table of Contents
 
@@ -42,7 +42,7 @@ From within the root directory:
 
 =======
 
-$ npm install 
+$ npm install
 (also runs gulp build).
 
 
@@ -52,7 +52,7 @@ Known Issues:
 ### Room to Grow!
 Food Runner has several excellent avenues for growth.
 1.  Karma -- Track and report how often people request and run for food.
-     -- The karma functionality is already built into the DB and NavBar. 
+     -- The karma functionality is already built into the DB and NavBar.
      1a:  Create 'levels' of karma, with more helpful users earning fun titles.
      1b:  Gamify Karma points.
 2.  Free food! -- Add another Component and button to the VolunteerRequestContainer to announce when there are  free nomz.
@@ -69,11 +69,10 @@ Food Runner has several excellent avenues for growth.
     -- https://venmo.com/
 7.  Only show requests from today
     -- this was supposed to be in the MVP, but fell behind.  All records have a created date, so it can be implemented by updating the queries in router.
-    
+
 Note: Log out button works, but doesn't redirect to landing page. Go to '/api/user/logout' or https://food-runner.herokuapp.com/api/user/logout to log out.
 
 
 ## Contributing
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
-

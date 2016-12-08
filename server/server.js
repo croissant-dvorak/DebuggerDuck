@@ -26,7 +26,7 @@ if (process.env.server) {
   passport.use(new Strategy({
     clientID: '361835207541944',
     clientSecret: 'ca1b1d29b3c119872740b588527bd6fb',
-    callbackURL: 'https://food-runner.herokuapp.com/facebook/oauth'
+    callbackURL: '/facebook/oauth'
   },
   //facebook sends back tokens and profile
   function(accessToken, refreshToken, profile, done) {
@@ -112,12 +112,12 @@ app.use(passport.session());
 //     randomNumber=randomNumber.substring(2,randomNumber.length);
 //     res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true });
 //     console.log('cookie created successfully');
-//   } 
+//   }
 //   else
 //   {
-//     // yes, cookie was already present 
+//     // yes, cookie was already present
 //     console.log('cookie exists', cookie);
-//   } 
+//   }
 //   next();
 // });
 
