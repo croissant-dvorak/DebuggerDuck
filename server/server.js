@@ -11,6 +11,7 @@ const session = require('express-session');
 const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
 const io = require('./util/sockets.js').listen(http);
+const config = require('./db/config.js')
 
 // Use express and export it
 module.exports.app = app;
@@ -27,9 +28,9 @@ module.exports.NODEPORT = process.env.PORT || 4040;
 
 if (process.env.server) {
   passport.use(new Strategy({
-    clientID: '361835207541944',
-    clientSecret: 'ca1b1d29b3c119872740b588527bd6fb',
-    callbackURL: '/facebook/oauth'
+    clientID: config.fbObj.clientID,
+    clientSecret: config.fbObj.clientSecret,
+    callbackURL: config.fbObj.callbackURL
   },
   //facebook sends back tokens and profile
   function(accessToken, refreshToken, profile, done) {
@@ -54,9 +55,9 @@ if (process.env.server) {
   }));
 } else {
   passport.use(new Strategy({
-    clientID: '361835207541944',
-    clientSecret: 'ca1b1d29b3c119872740b588527bd6fb',
-    callbackURL: 'http://127.0.0.1:' + module.exports.NODEPORT + '/facebook/oauth'
+    clientID: config.fbObj.clientID,
+    clientSecret: config.fbObj.clientSecret,
+    callbackURL: config.fbObj.callbackURL
   },
   //facebook sends back tokens and profile
   function(accessToken, refreshToken, profile, done) {
