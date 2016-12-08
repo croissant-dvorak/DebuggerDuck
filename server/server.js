@@ -11,7 +11,7 @@ const session = require('express-session');
 const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
 const io = require('./util/sockets.js').listen(http);
-const config =require('./db/config.js')
+const config = require('./db/config.js')
 
 // Use express and export it
 module.exports.app = app;
