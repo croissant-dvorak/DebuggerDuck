@@ -31,12 +31,11 @@ module.exports = {
       req.session.destroy();
       res.redirect('/');
     },
-    groups: {
+    group: {
       get: (req, res) => {
         db.User.findOne({_id: req.params.userId})
           .populate('groups')
           .then((user) => {
-            console.log('sending groups for', user)
             res.status(200).send(buildResObj(user.groups));
           })
           .catch((err) => {
@@ -45,9 +44,24 @@ module.exports = {
           })
       },
       post: (req, res) => {
-        
+        db.User.findById({_id: req.params.userId})
+          .then((user) => {
+            user.groups.push(req.body.data)
+            user.save()
+              .then ((user) => {
+                res.sendStatus(201)
+              })
+              .catch((err) => {
+                console.error(err);
+                res.sendStatus(400);
+              })
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(400);
+          })
       },
-    }
+    },
   },
 
   group: {
@@ -73,7 +87,7 @@ module.exports = {
           new db.Group({name: req.body.data.groupName}).save()
           .then((data) => {
             // Send a 201 status that it was completed
-            res.sendStatus(201);
+            res.status(201).send(data);
           })
           // Catch the error and log it in the server console
           .catch((err) => {
