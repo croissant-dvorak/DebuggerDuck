@@ -48,8 +48,7 @@ class Runner extends Component {
   ///Run functions on component load so data is available.
   componentDidMount() {
    this.postLogin();
-   this.getGroups();
-   this.getCurrentData();
+   // this.getCurrentData();
   }
 
 //Returns the mongo id for a given group name.
@@ -84,8 +83,8 @@ class Runner extends Component {
   }
 
 //Gets full list of available groups and updates state.
-  getGroups(){
-    axios.get('/api/group')
+  getGroups(userId){
+    axios.get('/api/user/' + userId + '/groups')
       .then( response => {
         this.setState( {groups:response.data.data} );
         console.log('Group State?',this.state.groups);
@@ -114,9 +113,9 @@ class Runner extends Component {
       .then(response => {
         console.log('User info sucessfully retrieved', response);
         this.setState({username: response.data.username});
+        this.getGroups(response.data._id);
         this.setState({picture: response.data.picture});
         this.setState({userId: response.data._id})
-        console.log(response.data.picture)
       })
       .catch(error =>{
         console.log('Error while getting user info', error)

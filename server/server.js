@@ -23,7 +23,7 @@ module.exports.NODEPORT = process.env.PORT || 4040;
 //Make a strategy for FB authentication
 
 if (process.env.server) {
-  passport.use(new Strategy(require('./db/config.js').fbObj},
+  passport.use(new Strategy(require('./db/config.js').fbObj,
   //facebook sends back tokens and profile
   function(accessToken, refreshToken, profile, done) {
     db.User.findOne({fb_id: profile.id}).exec()
@@ -34,7 +34,6 @@ if (process.env.server) {
             username: profile.displayName,
             fb_id: profile.id,
             picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal',
-            groups: [{group_id: 2345}]
           }).save()
           .then((data) => {
           })
@@ -46,22 +45,18 @@ if (process.env.server) {
      return done(null, profile);
   }));
 } else {
-  passport.use(new Strategy({
-    clientID: require('./db/config.js').fbObj.clientID,
-    clientSecret: require('./db/config.js').fbObj.clientSecret,
-    callbackURL: 'http://localhost:4040/facebook/oauth'
-  },
+  passport.use(new Strategy(require('./db/config.js').fbObj,
   //facebook sends back tokens and profile
   function(accessToken, refreshToken, profile, done) {
     db.User.findOne({fb_id: profile.id}).exec()
       .then((data) => {
         //console.log(data);
         if(!data) {
+          console.log('profile', profile)
           new db.User({
             username: profile.displayName,
             fb_id: profile.id,
-            picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal',
-            groups: [{group_id: 2345}]
+            picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal'
           }).save()
           .then((data) => {
 

@@ -30,6 +30,23 @@ module.exports = {
     logout: (req, res) => {
       req.session.destroy();
       res.redirect('/');
+    },
+    groups: {
+      get: (req, res) => {
+        db.User.findOne({_id: req.params.userId})
+          .populate('groups')
+          .then((user) => {
+            console.log('sending groups for', user)
+            res.status(200).send(buildResObj(user.groups));
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(400);
+          })
+      },
+      post: (req, res) => {
+        
+      },
     }
   },
 

@@ -10,7 +10,7 @@ const UserSchema = new Schema ({
 	username: String,
 	fb_id: String,
 	picture: String,
-	groups: [{group_id: String, karma: {type: Number, default:0}}]
+	groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }]
 });
 
 // let getNameFromFb = function(input){
@@ -33,7 +33,7 @@ const UserSchema = new Schema ({
 const GroupSchema = new Schema ({
 	// Will automatically generate group id
 	name: String,
-	users: [{user_id: String}]
+	users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 })
 
 const OrderSchema = new Schema ({
@@ -47,8 +47,8 @@ const OrderSchema = new Schema ({
 	createdAt: { type : Date, default: Date.now }
 })
 
-db.User = mongoose.model('user', UserSchema);
-db.Group = mongoose.model('group', GroupSchema);
-db.Order = mongoose.model('order', OrderSchema);
+db.User = mongoose.model('User', UserSchema);
+db.Group = mongoose.model('Group', GroupSchema);
+db.Order = mongoose.model('Order', OrderSchema);
 
 module.exports = db;
