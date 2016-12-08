@@ -26,7 +26,7 @@ class RequestModal extends React.Component {
     this.setState({
       isOpen: false
     });
-    this.props.postGroup(this.state.text);
+    //this.props.postGroup(this.state.text);
   }
 
   openModal (){
@@ -67,7 +67,7 @@ class RequestModal extends React.Component {
             </ModalHeader>
             <div className='modal-inside'>
               <div>
-                &nbsp; Name your group. &nbsp;
+                &nbsp; Enter Group Key &nbsp;
                 <input 
                 onChange={this.onTextChange.bind(this)} 
                 className='modal-input third-input' 
