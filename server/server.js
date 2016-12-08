@@ -13,6 +13,9 @@ const Strategy = require('passport-facebook').Strategy;
 const app = express();
 module.exports.app = app;
 
+var http = require('http').Server(app)
+var io = require('./socket.js').listen(http)
+
 // Check to see if there is a port environment variable or just use port 4040 instead
 module.exports.NODEPORT = process.env.PORT || 4040;
 
