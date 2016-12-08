@@ -44,17 +44,26 @@ module.exports = {
           })
       },
       post: (req, res) => {
+        Promise.all([
         db.User.findById({_id: req.params.userId})
           .then((user) => {
             user.groups.push(req.body.data)
-            user.save()
+            return user.save()
               .then ((user) => {
-                res.sendStatus(201)
+                return user;
               })
-              .catch((err) => {
-                console.error(err);
-                res.sendStatus(400);
+          }),
+        db.Group.findById({_id: req.body.data._id})
+          .then((group) => {
+            group.users.push(req.params.userId)
+            return group.save()
+              .then ((group) => {
+                return group;
               })
+          })])
+          .then ((response) => {
+            console.log(response)
+            res.sendStatus(201)
           })
           .catch((err) => {
             console.error(err);
