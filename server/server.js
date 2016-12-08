@@ -23,11 +23,7 @@ module.exports.NODEPORT = process.env.PORT || 4040;
 //Make a strategy for FB authentication
 
 if (process.env.server) {
-  passport.use(new Strategy({
-    clientID: require('./db/config.js').fbObj.clientID,
-    clientSecret: require('./db/config.js').fbObj.clientSecret,
-    callbackURL: 'http://localhost:4040/facebook/oauth'
-  },
+  passport.use(new Strategy(require('./db/config.js').fbObj},
   //facebook sends back tokens and profile
   function(accessToken, refreshToken, profile, done) {
     db.User.findOne({fb_id: profile.id}).exec()
