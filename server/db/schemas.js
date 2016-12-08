@@ -32,7 +32,8 @@ const UserSchema = new Schema ({
 
 const GroupSchema = new Schema ({
 	// Will automatically generate group id
-	name: String
+	name: String,
+	users: [{user_id: String}]
 })
 
 const OrderSchema = new Schema ({
