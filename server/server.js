@@ -10,8 +10,8 @@ const dbConnection = require('./db/connection.js');
 const session = require('express-session');
 const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
-const io = require('./util/sockets.js').listen(http);
-const config = require('./db/config.js')
+var io = require('./util/sockets.js').listen(http);
+const config = require('./db/config.js');
 
 // Use express and export it
 module.exports.app = app;
@@ -120,9 +120,18 @@ app.get('/facebook/oauth', passport.authenticate('facebook', {failureRedirect: '
 app.use('/api', router);
 
 // Start the actual server listening on the port variable
-app.listen(module.exports.NODEPORT, function (err) {
-  // If there is an error log it
-  if (err) { console.error(err); }
-  // If there is not an error console log what port the server is running on
-  else { console.log('Server running on port %s', module.exports.NODEPORT) }
-})
+// app.listen(module.exports.NODEPORT, function (err) {
+//   // If there is an error log it
+//   if (err) { console.error(err); }
+//   // If there is not an error console log what port the server is running on
+//   else { console.log('Server running on port %s', module.exports.NODEPORT) }
+// })
+
+http.listen(module.exports.NODEPORT)
+
+
+// io.on('connection', function(client){
+//     console.log("socket running")
+
+//     })
+
