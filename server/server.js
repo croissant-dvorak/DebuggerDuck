@@ -11,6 +11,7 @@ const session = require('express-session');
 const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
 const io = require('./util/sockets.js').listen(http);
+const config =require('./db/config.js')
 
 // Use express and export it
 module.exports.app = app;
@@ -25,38 +26,11 @@ module.exports.NODEPORT = process.env.PORT || 4040;
 //which will be set at req.user in route handlers after authentication
 //Make a strategy for FB authentication
 
-if (process.env.server) {
+
   passport.use(new Strategy({
-    clientID: '361835207541944',
-    clientSecret: 'ca1b1d29b3c119872740b588527bd6fb',
-    callbackURL: '/facebook/oauth'
-  },
-  //facebook sends back tokens and profile
-  function(accessToken, refreshToken, profile, done) {
-    db.User.findOne({fb_id: profile.id}).exec()
-      .then((data) => {
-        console.log(data);
-        if(!data) {
-          new db.User({
-            username: profile.displayName,
-            fb_id: profile.id,
-            picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal',
-            groups: [{group_id: 2345}]
-          }).save()
-          .then((data) => {
-          })
-          .catch((err) => {
-            console.error(err);
-          })
-        }
-      })
-     return done(null, profile);
-  }));
-} else {
-  passport.use(new Strategy({
-    clientID: '361835207541944',
-    clientSecret: 'ca1b1d29b3c119872740b588527bd6fb',
-    callbackURL: 'http://127.0.0.1:' + module.exports.NODEPORT + '/facebook/oauth'
+    clientID: config.fbObj.clientID,
+    clientSecret: config.fbObj.clientSecret,
+    callbackURL: config.fbObj.callbackURL
   },
   //facebook sends back tokens and profile
   function(accessToken, refreshToken, profile, done) {
@@ -80,7 +54,6 @@ if (process.env.server) {
       })
      return done(null, profile);
   }));
-}
 
 //Serialize and deserialize users out of the session.
 passport.serializeUser(function(user, done) {
