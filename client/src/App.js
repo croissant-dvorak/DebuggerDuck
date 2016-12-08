@@ -21,6 +21,7 @@ import LandingPage from './LandingPage.js';
 import Groups from './Groups.js';
 import VolunteerRequestsContainer from './VolunteerRequestsContainer.js';
 import GroupModal from './GroupModal';
+import JoinGroupModal from './JoinGroupModal';
 
 //Primary component for App.
 class Runner extends Component {
@@ -231,6 +232,9 @@ class Runner extends Component {
             )}
             <div className='center'>  
               <GroupModal postGroup={this.postGroup.bind(this)}/>
+            </div>
+            <div className='center'>  
+              <JoinGroupModal />
             </div>
           </div>
           )
