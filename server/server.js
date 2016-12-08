@@ -1,5 +1,7 @@
 const path = require('path');
 const express = require('express');
+const http = require('http').Server(app);
+const app = express();
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const router = require('./util/router.js');
@@ -8,9 +10,9 @@ const dbConnection = require('./db/connection.js');
 const session = require('express-session');
 const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
+const io = require('./util/sockets.js').listen(http);
 
 // Use express and export it
-const app = express();
 module.exports.app = app;
 
 // Check to see if there is a port environment variable or just use port 4040 instead
