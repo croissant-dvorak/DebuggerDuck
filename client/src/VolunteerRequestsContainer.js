@@ -18,7 +18,7 @@ class VolunteerRequestContainer extends Component {
     this.state = {
       volunteers: [],
     };
-
+    this.getOrdersForGroupId = this.getOrdersForGroupId.bind(this);
     this.getOrdersForGroupId(this.props.group._id);
   }
 
@@ -64,8 +64,7 @@ class VolunteerRequestContainer extends Component {
           getDataForRendering={this.getDataForRendering.bind(this)}
           getCurrentData={this.props.getCurrentData}
           currentGroup={this.props.currentGroup}
-          onSubmit={this.onSubmit.bind(this)}
-          postVolunteer={this.props.postVolunteer} />
+          onSubmit={this.onSubmit.bind(this)} />
         </div>
         {this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup))
           .map(volunteer =>
@@ -87,24 +86,9 @@ class VolunteerRequestContainer extends Component {
     }
   }
 
-  //We created this function because when we were posting data to the database, it wasn't automatically updating on the screen.
-  //Although our post requests were successful, the state was only changing in app.js.
-  //By creating this function, voluteerRequestContainer.js's state will also change, therefore rerendering everything in it.
-
-   getDataForRendering(){
-    return axios.get('/api/volunteer')
-      .then(response => {
-        this.setState({volunteers: response.data.data});
-      })
-      .catch(error => {
-        console.log('Error while getting current data: ', error);
-      })
-  }
-
   //This function will set the state of app.js
   onSubmit() {
-  	this.props.getCurrentData();
-
+  	this.getOrdersForGroupId(this.props.group._id);
   }
 
 };

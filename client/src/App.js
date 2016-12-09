@@ -151,27 +151,6 @@ class Runner extends Component {
       })
   }
 
-  //postVolunteer POSTS a new volunteer to the server.
-    //Accepts a location, a time, and group.  Pulls username from state.
-  postVolunteer(location, time, group) {
-    axios.post('/api/volunteer', {data:{
-      username: this.state.user.username,
-      location: location,
-      time:  time,
-      picture: this.state.user.picture,
-      groupId: this.getIdFromGroupName(group)
-      }
-    })
-    .then(response => {
-      console.log('Volunteer posted! ',response);
-      this.getCurrentData();
-      this.render();
-    })
-    .catch(error => {
-      console.log('Error while posting Volunteer: ',error);
-    });
-  }
-
   // postRequest sends a food request to the server.
   // volunteerId is the mongo db record for the volunteer (in the mongo Order table.)
     //text is what the user requested.
@@ -253,7 +232,6 @@ class Runner extends Component {
             //This also needs to be funneled info
               user={this.state.user}
               group={this.state.currentGroup}
-              postVolunteer={this.postVolunteer.bind(this)}
               postRequest={this.postRequest.bind(this)}
               //We pass down the selectDifferentGroup function to this component since the button is rendered there
               selectDifferentGroup={this.selectDifferentGroup.bind(this)} />

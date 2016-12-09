@@ -27,11 +27,31 @@ class VolunteerModal extends React.Component {
     this.setState({location: event.target.value});
   }
 
+  //postVolunteer POSTS a new volunteer to the server.
+    //Accepts a location, a time, and group.  Pulls username from state.
+  postVolunteer(location, time, group) {
+    axios.post('/api/volunteer', {data:{
+      username: this.state.user.username,
+      location: location,
+      time:  time,
+      picture: this.state.user.picture,
+      groupId: this.getIdFromGroupName(group)
+      }
+    })
+    .then(response => {
+      console.log('Volunteer posted! ',response);
+      this.getCurrentData();
+      this.render();
+    })
+    .catch(error => {
+      console.log('Error while posting Volunteer: ',error);
+    });
+  }
+
   onSubmit (){
-    this.props.postVolunteer(this.state.location, this.state.time, this.props.currentGroup);
+    this.postVolunteer(this.state.location, this.state.time, this.props.currentGroup);
     console.log("On submit at the modal level")
-    this.props.onSubmit();
-    this.props.getDataForRendering();
+    this.props.getOrdersForGroupId();
     this.setState({
       isOpen: false,
       time: '',
