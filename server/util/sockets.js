@@ -6,10 +6,11 @@ module.exports.listen = function(http){
   var io = socketio(http)
   //establish socket connection
   io.on('connection', function(client){
-    console.log("socket running")
+    console.log("socket running, from project page")
 
     //here's how we create a new room
     client.on('createRoom', function(roomID) {
+      console.log('ROOM--------', roomID)
       client.join(roomID);
     });
 
