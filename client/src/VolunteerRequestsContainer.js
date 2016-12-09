@@ -11,17 +11,28 @@ class VolunteerRequestContainer extends Component {
     super(props);
     console.log('prrrrrrrrrro', this.props)
     var socket = io();
-    socket.emit('createRoom', this.props.currentData)
+    socket.emit('createRoom', this.props.group._id)
     socket.on('addMessage', function(mess) {
       console.log(mess)
     })
     this.state = {
-      //this info was funneled down from app.js
-      username: props.user.username,
-      picture: props.user.picture,
-      volunteers: props.currentData,
+      volunteers: [],
     };
 
+    this.getOrdersForGroupId(this.props.group._id);
+  }
+
+  // //Gets all volunteers for today, and all associated requests.
+  //   //updates currentData in state, which is then passed to VolunteerRequest Container.
+  getOrdersForGroupId(groupId) {
+    axios.get('/api/group/'+groupId+'/volunteer')
+      .then(response => {
+        console.log('Getting Current Data?', response.data.data);
+        this.setState({volunteers: response.data.data});
+      })
+      .catch(error => {
+        console.log('Error while getting current data: ', error);
+      })
   }
 
   render() {

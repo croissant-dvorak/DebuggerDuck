@@ -34,7 +34,7 @@ class Runner extends Component {
         picture: '',
         groups: []
       },
-      currentGroup: '',
+      currentGroup: undefined,
     };
     //Binding context for functions that get passed down.
     //this.getGroupsForUserId = this.getGroupsForUserId.bind(this);
@@ -60,8 +60,9 @@ class Runner extends Component {
     }
   }
   //Helper function to change Group.
-  selectGroup(name){
-    this.setState({currentGroup: name});
+  selectGroup(group){
+    console.log('setting current group')
+    this.setState({currentGroup: group});
   }
   selectDifferentGroup(){
     this.setState({currentGroup:''});
@@ -109,19 +110,6 @@ class Runner extends Component {
       .catch(error => {
         console.log('Error while getting groups: ', error);
     });
-  }
-
-  // //Gets all volunteers for today, and all associated requests.
-  //   //updates currentData in state, which is then passed to VolunteerRequest Container.
-  getCurrentData() {
-    axios.get('/api/volunteer')
-      .then(response => {
-        console.log('Getting Current Data?', response.data.data);
-        this.setState({currentData: response.data.data});
-      })
-      .catch(error => {
-        console.log('Error while getting current data: ', error);
-      })
   }
 
 //Triggers FB login, then retrieves user info from DB/FB.
@@ -224,7 +212,7 @@ class Runner extends Component {
         </div>
         )
     } else {
-      if (this.state.currentGroup===''){
+      if (this.state.currentGroup === undefined){
         return (
           <div>
           <NavBar
@@ -263,14 +251,10 @@ class Runner extends Component {
               user={this.state.user.username}  />
             <VolunteerRequestsContainer
             //This also needs to be funneled info
-              getIdFromGroupName={this.getIdFromGroupName.bind(this)}
               user={this.state.user}
-              currentGroup={this.state.currentGroup}
-              currentData={this.state.currentData}
-              getCurrentData={this.getCurrentData.bind(this)}
+              group={this.state.currentGroup}
               postVolunteer={this.postVolunteer.bind(this)}
               postRequest={this.postRequest.bind(this)}
-              getCurrentData={this.getCurrentData.bind(this)}
               //We pass down the selectDifferentGroup function to this component since the button is rendered there
               selectDifferentGroup={this.selectDifferentGroup.bind(this)} />
           </div>
