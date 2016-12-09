@@ -21,6 +21,7 @@ import LandingPage from './LandingPage.js';
 import Groups from './Groups.js';
 import VolunteerRequestsContainer from './VolunteerRequestsContainer.js';
 import GroupModal from './GroupModal';
+import JoinGroupModal from './JoinGroupModal';
 
 //Primary component for App.
 class Runner extends Component {
@@ -39,17 +40,17 @@ class Runner extends Component {
 
     };
     //Binding context for functions that get passed down.
-    //this.getGroups = this.getGroups.bind(this);
+    //this.getGroupsForUserId = this.getGroupsForUserId.bind(this);
     this.getCurrentData = this.getCurrentData.bind(this);
     this.postLogin = this.postLogin.bind(this);
     this.postLogout = this.postLogout.bind(this);
+    this.addUserToGroup = this.addUserToGroup.bind(this);
   }
 
   ///Run functions on component load so data is available.
   componentDidMount() {
    this.postLogin();
-   this.getGroups();
-   this.getCurrentData();
+   // this.getCurrentData();
   }
 
 //Returns the mongo id for a given group name.
@@ -76,23 +77,39 @@ class Runner extends Component {
     //this.setState({groupChosen:true});
     axios.post('/api/group', {data:{"groupName":groupName}})
       .then( response =>{
-        this.getGroups();
+        this.addUserToGroup(this.state.userId, response.data._id)
+          .then( response => {
+            this.getGroupsForUserId(this.state.userId);
+          })
+          .catch( error => {
+            console.log('Error while adding user to group:', error);
+          });
       })
-       .catch(error => {
+      .catch(error => {
         console.log('Error while getting groups: ', error);
-    });
+      });
+  }
+
+  addUserToGroup(userId, groupId){
+    return axios.post('/api/user/' + userId + '/group', {data: {_id: groupId}})
+      .then( response => {
+        return response.data;
+      })
+      .catch(error => {
+        console.log('Error while posting user to group: ', error);
+      });
   }
 
 //Gets full list of available groups and updates state.
-  getGroups(){
-    axios.get('/api/group')
+  getGroupsForUserId(userId){
+    axios.get('/api/user/' + userId + '/group')
       .then( response => {
         this.setState( {groups:response.data.data} );
         console.log('Group State?',this.state.groups);
     })
       .catch(error => {
         console.log('Error while getting groups: ', error);
-    })
+    });
   }
 
   // //Gets all volunteers for today, and all associated requests.
@@ -114,9 +131,9 @@ class Runner extends Component {
       .then(response => {
         console.log('User info sucessfully retrieved', response);
         this.setState({username: response.data.username});
+        this.getGroupsForUserId(response.data._id);
         this.setState({picture: response.data.picture});
         this.setState({userId: response.data._id})
-        console.log(response.data.picture)
       })
       .catch(error =>{
         console.log('Error while getting user info', error)
@@ -232,6 +249,9 @@ class Runner extends Component {
             )}
             <div className='center'>  
               <GroupModal postGroup={this.postGroup.bind(this)}/>
+            </div>
+            <div className='center'>  
+              <JoinGroupModal />
             </div>
           </div>
           )

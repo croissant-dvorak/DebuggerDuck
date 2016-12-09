@@ -30,7 +30,47 @@ module.exports = {
     logout: (req, res) => {
       req.session.destroy();
       res.redirect('/');
-    }
+    }, 
+    group: {
+      get: (req, res) => {
+        db.User.findOne({_id: req.params.userId})
+          .populate('groups')
+          .then((user) => {
+            res.status(200).send(buildResObj(user.groups));
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(400);
+          })
+      },
+      post: (req, res) => {
+        Promise.all([
+        db.User.findById({_id: req.params.userId})
+          .then((user) => {
+            user.groups.push(req.body.data)
+            return user.save()
+              .then ((user) => {
+                return user;
+              })
+          }),
+        db.Group.findById({_id: req.body.data._id})
+          .then((group) => {
+            group.users.push(req.params.userId)
+            return group.save()
+              .then ((group) => {
+                return group;
+              })
+          })])
+          .then ((response) => {
+            console.log(response)
+            res.sendStatus(201)
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(400);
+          })
+      },
+    },
   },
 
   group: {
@@ -46,6 +86,18 @@ module.exports = {
           res.sendStatus(400);
         })
     },
+
+    delete: (req, res) => {
+      db.Group.findByIdAndRemove({_id: req.query.id})
+      .then((user) => {
+        res.status(200).send('the group is dead.')
+      })
+      .catch((err) => {
+            console.error(err);
+            res.sendStatus(400);
+          })
+    },
+
     // Group controller functions for GET
     post: (req, res) => {
       // Look in the database to see if there is a Group with the given name already
@@ -56,7 +108,7 @@ module.exports = {
           new db.Group({name: req.body.data.groupName}).save()
           .then((data) => {
             // Send a 201 status that it was completed
-            res.sendStatus(201);
+            res.status(201).send(data);
           })
           // Catch the error and log it in the server console
           .catch((err) => {
@@ -71,6 +123,19 @@ module.exports = {
       })
       .catch((err) => {
         console.log(err);
+      })
+    },
+
+    postMessage: (req, res) => {
+      db.Group.findOneAndUpdate({_id: req.params.groupId},
+      {$push: { messages:{user_id: req.body.data.username, picture: req.body.data.picture, text:req.body.data.text} } }
+      )
+      .then((data) => {
+        console.log('Message saved to group in DB.', data);
+        res.status(201);
+      })
+      .catch((err) => {
+        res.sendStatus(400)
       })
     }
   },

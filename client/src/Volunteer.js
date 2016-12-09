@@ -7,6 +7,8 @@ import RequestModal from './RequestModal.js';
 
 class Volunteer extends Component {
   constructor(props) {
+    var socket = io;
+    io.createRoom('2233')
     super(props);
     console.log("Volunteer Props: ", props)
     this.state = {
@@ -15,7 +17,7 @@ class Volunteer extends Component {
       picture: this.props.picture,
       //we set text as '' because nothing has been entered yet.
       text:'',
-      //requests is an array of stuff obtained from the database. 
+      //requests is an array of stuff obtained from the database.
       //It can be added to by the user by typing into the inputs and submitting.
       requests:this.props.volunteer.requests,
       count:0
@@ -39,14 +41,14 @@ class Volunteer extends Component {
 
 
   render() {
-  	return ( 
+  	return (
         <div className='volunteer-div'>
           <img className='small-profile-pic' src={this.props.volunteer.picture}/>
           {this.props.volunteer.order_user} is going to {this.props.volunteer.location} at {this.props.volunteer.time}.
-        
+
         {this.state.requests.map(request =>
           //this goes through the array of requests and maps them using the child component, Request.js
-          <Request 
+          <Request
           //I threw math.random as the key because react kept getting angry at me for making duplicate keys??
             key= {Math.random()}
             request={request}/>
@@ -55,7 +57,7 @@ class Volunteer extends Component {
         </div>
   );
  }
- 
+
 };
 
 export default Volunteer;

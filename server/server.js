@@ -1,7 +1,5 @@
 const path = require('path');
 const express = require('express');
-const app = express();
-const http = require('http').Server(app);
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 const router = require('./util/router.js');
@@ -10,12 +8,10 @@ const dbConnection = require('./db/connection.js');
 const session = require('express-session');
 const passport = require('passport');
 const Strategy = require('passport-facebook').Strategy;
-var io = require('./util/sockets.js').listen(http);
-const config = require('./db/config.js');
 
 // Use express and export it
+const app = express();
 module.exports.app = app;
-
 
 // Check to see if there is a port environment variable or just use port 4040 instead
 module.exports.NODEPORT = process.env.PORT || 4040;
@@ -26,23 +22,41 @@ module.exports.NODEPORT = process.env.PORT || 4040;
 //which will be set at req.user in route handlers after authentication
 //Make a strategy for FB authentication
 
-
-  passport.use(new Strategy({
-    clientID: config.fbObj.clientID,
-    clientSecret: config.fbObj.clientSecret,
-    callbackURL: config.fbObj.callbackURL
-  },
+if (process.env.server) {
+  passport.use(new Strategy(require('./db/config.js').fbObj,
+  //facebook sends back tokens and profile
+  function(accessToken, refreshToken, profile, done) {
+    db.User.findOne({fb_id: profile.id}).exec()
+      .then((data) => {
+        console.log(data);
+        if(!data) {
+          new db.User({
+            username: profile.displayName,
+            fb_id: profile.id,
+            picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal',
+          }).save()
+          .then((data) => {
+          })
+          .catch((err) => {
+            console.error(err);
+          })
+        }
+      })
+     return done(null, profile);
+  }));
+} else {
+  passport.use(new Strategy(require('./db/config.js').fbObj,
   //facebook sends back tokens and profile
   function(accessToken, refreshToken, profile, done) {
     db.User.findOne({fb_id: profile.id}).exec()
       .then((data) => {
         //console.log(data);
         if(!data) {
+          console.log('profile', profile)
           new db.User({
             username: profile.displayName,
             fb_id: profile.id,
-            picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal',
-            groups: [{group_id: 2345}]
+            picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal'
           }).save()
           .then((data) => {
 
@@ -54,6 +68,7 @@ module.exports.NODEPORT = process.env.PORT || 4040;
       })
      return done(null, profile);
   }));
+}
 
 //Serialize and deserialize users out of the session.
 passport.serializeUser(function(user, done) {
@@ -88,12 +103,12 @@ app.use(passport.session());
 //     randomNumber=randomNumber.substring(2,randomNumber.length);
 //     res.cookie('cookieName',randomNumber, { maxAge: 900000, httpOnly: true });
 //     console.log('cookie created successfully');
-//   }
+//   } 
 //   else
 //   {
-//     // yes, cookie was already present
+//     // yes, cookie was already present 
 //     console.log('cookie exists', cookie);
-//   }
+//   } 
 //   next();
 // });
 
@@ -120,18 +135,9 @@ app.get('/facebook/oauth', passport.authenticate('facebook', {failureRedirect: '
 app.use('/api', router);
 
 // Start the actual server listening on the port variable
-// app.listen(module.exports.NODEPORT, function (err) {
-//   // If there is an error log it
-//   if (err) { console.error(err); }
-//   // If there is not an error console log what port the server is running on
-//   else { console.log('Server running on port %s', module.exports.NODEPORT) }
-// })
-
-http.listen(module.exports.NODEPORT)
-
-
-// io.on('connection', function(client){
-//     console.log("socket running")
-
-//     })
-
+app.listen(module.exports.NODEPORT, function (err) {
+  // If there is an error log it
+  if (err) { console.error(err); }
+  // If there is not an error console log what port the server is running on
+  else { console.log('Server running on port %s', module.exports.NODEPORT) }
+})
