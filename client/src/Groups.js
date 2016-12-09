@@ -13,7 +13,7 @@ class Groups extends Component {
    render(){
       // There's not much to this component. Technically, we could probably throw it in the app.js if we wanted to.
       return (
-         <div className='group'><button key={Math.random()} onClick={this.sendGroupNameToApp.bind(this)} className='group-button'>{this.props.group.name} Key:{this.props.group._id}</button></div>
+         <div className='group'><button key={Math.random()} onClick={this.sendGroupNameToApp.bind(this)} className='group-button'>{this.props.group.name}</button></div>
       )
    }
    
