@@ -30,15 +30,14 @@ class Runner extends Component {
 //holds the logged in state, username, picture
     this.state = {
       loggedIn: false,
-      user : { picture: ''},
+      user : { 
+        picture: '',
+        groups: [],
+      },
       currentGroup: '',
-      //currentData holds all volunteers and requests.
-      currentData:[],
-
     };
     //Binding context for functions that get passed down.
     //this.getGroupsForUserId = this.getGroupsForUserId.bind(this);
-    this.getCurrentData = this.getCurrentData.bind(this);
     this.postLogin = this.postLogin.bind(this);
     this.postLogout = this.postLogout.bind(this);
     this.addUserToGroup = this.addUserToGroup.bind(this);
@@ -76,7 +75,7 @@ class Runner extends Component {
       .then( response =>{
         this.addUserToGroup(this.state.user._id, response.data._id)
           .then( response => {
-            this.getGroupsForUserId(this.state.user._id);
+            
           })
           .catch( error => {
             console.log('Error while adding user to group:', error);
@@ -90,6 +89,7 @@ class Runner extends Component {
   addUserToGroup(userId, groupId){
     return axios.post('/api/user/' + userId + '/group', {data: {_id: groupId}})
       .then( response => {
+        this.getGroupsForUserId(userId);
         return response.data;
       })
       .catch(error => {
@@ -124,7 +124,7 @@ class Runner extends Component {
 
 //Triggers FB login, then retrieves user info from DB/FB.
   getUserData(){
-    axios.get('/api/user')
+    axios.get('/api/user/')
       .then(response => {
         console.log('User info sucessfully retrieved', response);
         this.setState({user: response.data});
@@ -139,8 +139,8 @@ class Runner extends Component {
     axios.get('/api/user/loggedin')
       .then(response => {
         console.log('Login successful? ', response);
+        this.getUserData();
         this.setState({loggedIn: true});
-        this.getUserData()
       })
       .catch(error => {
         console.log('Error occurred during login ', error);
@@ -229,7 +229,7 @@ class Runner extends Component {
           loggedIn={true}
           postLogout={this.postLogout.bind(this)}
           postLogin={this.postLogin.bind(this)}
-          user={this.state.user} >
+          user={this.state.user} />
           <div className='greeting'> Hi, {this.state.user.username}.</div>
           <div className='group-select'>Please select a group.</div>
             {this.state.user.groups.map(group =>

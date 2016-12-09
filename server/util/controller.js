@@ -11,7 +11,8 @@ module.exports = {
 
   user: {
     get: (req, res) => {
-      db.User.findOne({fb_id: req.user.id}).exec()
+      db.User.findOne({fb_id: req.user.id})
+        .populate('groups')
         .then((user) => {
           res.status(200).send(user);
         })

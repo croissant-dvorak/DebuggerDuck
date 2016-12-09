@@ -3,12 +3,10 @@ import React, {Component} from 'react';
 class Groups extends Component {
    constructor(props) {
     super(props);
-    this.state = {
-      currentGroup: this.props.group
-    };
+    console.log('group:', this.props.group)
   }
   sendGroupNameToApp() {
-    this.props.selectGroup(this.state.currentGroup);
+    this.props.selectGroup(this.props.group.name);
   }
    render(){
       // There's not much to this component. Technically, we could probably throw it in the app.js if we wanted to.

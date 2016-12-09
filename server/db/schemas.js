@@ -41,7 +41,8 @@ const OrderSchema = new Schema ({
 	order_user: String,
 	location: String,
 	time: String,
-	group_id: String,
+	group_id: Schema.Types.ObjectId,
+	active: Boolean,
 	picture: String,
 	requests: [{user_id: String, picture: String, text: String}],
 	createdAt: { type : Date, default: Date.now }
