@@ -30,7 +30,7 @@ class Runner extends Component {
 //holds the logged in state, username, picture
     this.state = {
       loggedIn: false,
-      user : { picture: ''}
+      user : { picture: ''},
       currentGroup: '',
       //currentData holds all volunteers and requests.
       currentData:[],
