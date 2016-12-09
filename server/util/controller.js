@@ -128,7 +128,7 @@ module.exports = {
 
     postMessage: (req, res) => {
       db.Group.findOneAndUpdate({_id: req.params.groupId},
-      {$push: { messages:{user_id: req.body.data.username, picture: req.body.data.picture, text:req.body.data.text} } }
+      {$push: { messages:{user_id: req.body.user_id, picture: req.body.picture, text:req.body.text} } }
       )
       .then((data) => {
         console.log('Message saved to group in DB.', data);
