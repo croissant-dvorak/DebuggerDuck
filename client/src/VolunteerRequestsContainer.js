@@ -14,8 +14,8 @@ class VolunteerRequestContainer extends Component {
     socket.emit('createRoom', 223)
     this.state = {
       //this info was funneled down from app.js
-      username: props.username,
-      picture: props.picture,
+      username: props.user.username,
+      picture: props.user.picture,
       volunteers: props.currentData,
     };
 
