@@ -1,3 +1,7 @@
+import React, {Component} from 'react';
+import ReactDOM from 'react-dom';
+import axios from 'axios';
+
 class Chat extends Component {
   constructor(props) {
     super(props);
@@ -6,7 +10,8 @@ class Chat extends Component {
       this.setState({messages: response.data});
     }).catch(error => {
       console.log('Error in Chat component axios call:', error);
-    })console.log('prrrrrrrrrro', this.props)
+    })
+    console.log('prrrrrrrrrro', this.props)
     var socket = io();
     socket.emit('createRoom', this.props.group._id)
     socket.on('addMessage', function(mess) {

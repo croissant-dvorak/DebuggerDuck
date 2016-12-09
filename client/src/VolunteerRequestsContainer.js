@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import axios from 'axios';
 
 import PickUpOffers from './PickUpOffers.jsx'
-import Chat from './Chat.jsx'
+import Chat from './Chat.js'
 
 //This is a child component of app.js and the parent of volunteer.js (and therefore a grandparent(?) of request.js)
 class VolunteerRequestContainer extends Component {
