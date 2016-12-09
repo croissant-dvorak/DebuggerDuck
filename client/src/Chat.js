@@ -2,6 +2,8 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
+import Message from './message.js'
+
 class Chat extends Component {
   constructor(props) {
     super(props);

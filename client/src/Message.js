@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 
 
-constant Message = (props) => (
+const Message = (props) => (
   <div className='volunteer-div'>
     {this.props.userName + ': ' this.props.messageText}
   </div>
