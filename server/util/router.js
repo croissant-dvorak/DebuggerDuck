@@ -31,7 +31,7 @@ router.get('/volunteer', controller.volunteer.get);
 router.post('/volunteer', controller.volunteer.post);
 
 // Use the router to direct POST requests for /request
-router.post('/request', controller.request.post);
+router.post('/request/:volunteerId', controller.request.post);
 
 
 // User the router to direct GET requests for /logout
