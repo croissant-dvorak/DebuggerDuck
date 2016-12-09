@@ -24,7 +24,7 @@ class VolunteerRequestContainer extends Component {
     // the groups name, we had to pass down a function called getIdFromGroupName that returns the id.
     //Once we have the id, we can use that information to filter through this.state.volunteers to only display the
     //info from that particular group.
-    let filteredVolunteers=this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup));
+    let filteredVolunteers = this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup));
     //Here we check if no one has volunteered yet. If so, we render a div that tells the user that no one has volunteered yet.
     //If they do volunteer, this.state.volunteer will change and the page will render immediately and will display their info.
     if (filteredVolunteers.length===0){
@@ -43,8 +43,12 @@ class VolunteerRequestContainer extends Component {
         //VolunteerModal pops up when you click the Volunteer Services button
      <div className='request-container'>
         <div>
-          <VolunteerModal getDataForRendering={this.getDataForRendering.bind(this)} getCurrentData={this.props.getCurrentData} currentGroup={this.props.currentGroup} onSubmit={this.onSubmit.bind(this)} postVolunteer={this.props.postVolunteer} />
-
+          <VolunteerModal 
+          getDataForRendering={this.getDataForRendering.bind(this)} 
+          getCurrentData={this.props.getCurrentData} 
+          currentGroup={this.props.currentGroup} 
+          onSubmit={this.onSubmit.bind(this)} 
+          postVolunteer={this.props.postVolunteer} />
         </div>
         {this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup))
           .map(volunteer =>

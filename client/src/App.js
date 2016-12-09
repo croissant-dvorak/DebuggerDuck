@@ -245,7 +245,7 @@ class Runner extends Component {
               //If I don't put a key in, react gets angry with me.
               selectGroup={this.selectGroup.bind(this)}
               key={Math.random()}
-              group={group.name} />
+              group={group} />
             )}
             <div className='center'>  
               <GroupModal postGroup={this.postGroup.bind(this)}/>
