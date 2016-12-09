@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import axios from 'axios';
 
 import PickUpOffers from './PickUpOffers.jsx'
 import Chat from './Chat.js'
@@ -13,8 +12,8 @@ class VolunteerRequestContainer extends Component {
   render() {
     return (
       <div className="row">
-        <Chat group={this.props.group} className="col-md-6"/>
-        <PickUpOffers group={this.props.group} className="col-md-6"/>
+        <Chat user={this.props.user} group={this.props.group} />
+        <PickUpOffers user={this.props.user} group={this.props.group} />
       </div>
     )
   }
