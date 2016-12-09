@@ -26,6 +26,7 @@ class RequestModal extends React.Component {
     this.setState({
       isOpen: false
     });
+    this.props.addUserToGroup(this.props.userId, this.state.text);
     //this.props.postGroup(this.state.text);
   }
 
