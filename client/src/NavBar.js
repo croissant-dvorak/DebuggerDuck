@@ -40,9 +40,9 @@ class NavBar extends Component {
     		<FacebookButton 
           logOut={this.logOut.bind(this)} 
           loggedIn={this.state.loggedIn}/>
-    		<div className='karma'>Karma: {this.state.karma}</div>
-        <img className='nav-pic' src={this.props.picture}/>
-        <div className='username'>{this.props.username} </div>
+    		{/**<div className='karma'>Karma: {this.state.karma}</div>*/}
+        <img className='nav-pic' src={this.props.user.picture}/>
+        <div className='username'>{this.props.user.username} </div>
     	</div>
   		);
   	}

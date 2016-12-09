@@ -30,11 +30,8 @@ class Runner extends Component {
 //holds the logged in state, username, picture
     this.state = {
       loggedIn: false,
-      username: '',
-      picture: '',
+      user : { picture: ''}
       currentGroup: '',
-      userId: '',
-      groups:[],
       //currentData holds all volunteers and requests.
       currentData:[],
 
@@ -55,9 +52,9 @@ class Runner extends Component {
 
 //Returns the mongo id for a given group name.
   getIdFromGroupName(name) {
-    for (var i=0;i<this.state.groups.length;i++){
-      if (this.state.groups[i].name===name){
-        return this.state.groups[i]._id;
+    for (var i=0;i<this.state.user.groups.length;i++){
+      if (this.state.user.groups[i].name===name){
+        return this.state.user.groups[i]._id;
       } else {
         console.log('Group Id not found')
       }
@@ -77,9 +74,9 @@ class Runner extends Component {
     //this.setState({groupChosen:true});
     axios.post('/api/group', {data:{"groupName":groupName}})
       .then( response =>{
-        this.addUserToGroup(this.state.userId, response.data._id)
+        this.addUserToGroup(this.state.user._id, response.data._id)
           .then( response => {
-            this.getGroupsForUserId(this.state.userId);
+            this.getGroupsForUserId(this.state.user._id);
           })
           .catch( error => {
             console.log('Error while adding user to group:', error);
@@ -130,10 +127,7 @@ class Runner extends Component {
     axios.get('/api/user')
       .then(response => {
         console.log('User info sucessfully retrieved', response);
-        this.setState({username: response.data.username});
-        this.getGroupsForUserId(response.data._id);
-        this.setState({picture: response.data.picture});
-        this.setState({userId: response.data._id})
+        this.setState({user: response.data});
       })
       .catch(error =>{
         console.log('Error while getting user info', error)
@@ -171,10 +165,10 @@ class Runner extends Component {
     //Accepts a location, a time, and group.  Pulls username from state.
   postVolunteer(location, time, group) {
     axios.post('/api/volunteer', {data:{
-      username: this.state.username,
+      username: this.state.user.username,
       location: location,
       time:  time,
-      picture: this.state.picture,
+      picture: this.state.user.picture,
       groupId: this.getIdFromGroupName(group)
       }
     })
@@ -196,9 +190,9 @@ class Runner extends Component {
   postRequest(volunteerId, text) {
       axios.post('/api/request', {data:{
       //don't remove.  
-      username: this.state.username,
+      username: this.state.user.username,
       volunteerId: volunteerId,
-      picture: this.state.picture, 
+      picture: this.state.user.picture, 
       text: text,
 
       }
@@ -235,11 +229,10 @@ class Runner extends Component {
           loggedIn={true}
           postLogout={this.postLogout.bind(this)}
           postLogin={this.postLogin.bind(this)}
-          username={this.state.username} 
-          picture={this.state.picture}/>
-          <div className='greeting'> Hi, {this.state.username}.</div>
+          user={this.state.user} >
+          <div className='greeting'> Hi, {this.state.user.username}.</div>
           <div className='group-select'>Please select a group.</div>
-            {this.state.groups.map(group =>
+            {this.state.user.groups.map(group =>
               //This maps out all the groups into a list. 
               <Groups 
               //If I don't put a key in, react gets angry with me.
@@ -251,7 +244,7 @@ class Runner extends Component {
               <GroupModal postGroup={this.postGroup.bind(this)}/>
             </div>
             <div className='center'>  
-              <JoinGroupModal addUserToGroup={this.addUserToGroup.bind(this)} userId={this.state.userId}
+              <JoinGroupModal addUserToGroup={this.addUserToGroup.bind(this)} userId={this.state.user._id}
               />
             </div>
           </div>
@@ -265,13 +258,11 @@ class Runner extends Component {
               loggedIn={true}
               postLogout={this.postLogout.bind(this)}
               postLogin={this.postLogin.bind(this)}
-              username={this.state.username} 
-              picture={this.state.picture} />
+              user={this.state.user.username}  />
             <VolunteerRequestsContainer 
             //This also needs to be funneled info
               getIdFromGroupName={this.getIdFromGroupName.bind(this)}
-              username={this.state.username} 
-              picture={this.state.picture}
+              user={this.state.user} 
               currentGroup={this.state.currentGroup}
               currentData={this.state.currentData}
               getCurrentData={this.getCurrentData.bind(this)}

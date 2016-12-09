@@ -11,8 +11,8 @@ class VolunteerRequestContainer extends Component {
     super(props);
     this.state = {
       //this info was funneled down from app.js
-      username: props.username,
-      picture: props.picture,
+      username: props.user.username,
+      picture: props.user.picture,
       volunteers: props.currentData,
     };
 
