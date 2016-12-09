@@ -127,13 +127,13 @@ module.exports = {
       //console.log('Request POST', req);
 
    }
-}, 
+},
 
   logout: {
     get: (req, res) => {
-      res.sendStatus(200); 
+      res.sendStatus(200);
 
      }
-   },  
-  
-}  
+   },
+
+}

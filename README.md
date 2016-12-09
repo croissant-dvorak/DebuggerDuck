@@ -4,9 +4,9 @@
 
 ## Team
 
-  - __Product Owner__: Hevi Kevi
-  - __Scrum Master__: Casey Billman
-  - __Development Team Members__: Bennett Staley, Carolyn Commons
+  - __Product Owner__: Robin Dykema
+  - __Scrum Master__: Johnny McDuff
+  - __Development Team Members__: Renata Maraj, Will Schwanke
 
 ## Table of Contents
 

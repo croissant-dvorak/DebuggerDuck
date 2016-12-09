@@ -29,6 +29,6 @@ router.post('/volunteer', controller.volunteer.post);
 router.post('/request', controller.request.post);
 
 // User the router to direct GET requests for /logout
-router.get('/logout', controller.logout.get);
+router.get('/logout', controller.user.logout);
 
 module.exports = router;
