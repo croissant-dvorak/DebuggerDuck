@@ -6,6 +6,6 @@ import ReactDOM from 'react-dom';
 const Message = (props) => (
   <div className='volunteer-div'>
     {this.props.userName + ': ' + this.props.messageText}
-  </div>
+  </div> )
 
 export default Volunteer;
