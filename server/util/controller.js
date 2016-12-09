@@ -155,7 +155,7 @@ module.exports = {
     post: (req, res) => {
 
       db.Order.findOneAndUpdate(
-         {_id:req.body.data.volunteerId},
+         {_id: req.body.data.volunteerId},
          {$push: { requests:{user_id: req.body.data.username, picture: req.body.data.picture, text:req.body.data.text} } }
         )
       .then((data) => {

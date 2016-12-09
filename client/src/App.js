@@ -1,4 +1,4 @@
-//App.js is the top component. It stores all the main data within its state. 
+//App.js is the top component. It stores all the main data within its state.
 //It renders 3 different views based on its state (described in detail below).
 //It funnels down user data into its child components.
 //The hierarchy is described below.
@@ -30,9 +30,9 @@ class Runner extends Component {
 //holds the logged in state, username, picture
     this.state = {
       loggedIn: false,
-      user : { 
+      user : {
         picture: '',
-        groups: [],
+        groups: []
       },
       currentGroup: '',
     };
@@ -66,7 +66,7 @@ class Runner extends Component {
   selectDifferentGroup(){
     this.setState({currentGroup:''});
     //this rerenders the app to go back to option 2 (mentioned above)
-  }  
+  }
 
 //Adds a new group to DB.
   postGroup(groupName){
@@ -78,11 +78,13 @@ class Runner extends Component {
             
           })
           .catch( error => {
+            //function ALERT ERROR. GROUP ALREADY EXISTS
             console.log('Error while adding user to group:', error);
           });
       })
       .catch(error => {
-        console.log('Error while getting groups: ', error);
+        alert('group already exists, make a new one dummy!')
+        console.log('Error while adding group: ', error);
       });
   }
 
@@ -186,26 +188,27 @@ class Runner extends Component {
   // volunteerId is the mongo db record for the volunteer (in the mongo Order table.)
     //text is what the user requested.
     //username for hte request is pulled from state.
-    
+
   postRequest(volunteerId, text) {
       axios.post('/api/request', {data:{
-      //don't remove.  
+      //don't remove.
       username: this.state.user.username,
       volunteerId: volunteerId,
-      picture: this.state.user.picture, 
+      picture: this.state.user.picture,
       text: text,
 
       }
     })
       .then(response => {
         console.log('Request submitted: ', response.data);
+        console.log('USER', this.state)
       })
       .catch(error => {
         console.log('Error while submitting food request:', error);
       })
   }
 
-  //There are three possible options when we reach the home page. 
+  //There are three possible options when we reach the home page.
 //For each option a navbar is rendered regardless of state.
 //1. LoggedIn is false -> render the Landing page component.
 //2. LoggedIn is true but group chosen is false -> render the groups component.
@@ -224,8 +227,7 @@ class Runner extends Component {
       if (this.state.currentGroup===''){
         return (
           <div>
-          <NavBar 
-          //Funnel down info into the navbar
+          <NavBar
           loggedIn={true}
           postLogout={this.postLogout.bind(this)}
           postLogin={this.postLogin.bind(this)}
@@ -233,36 +235,36 @@ class Runner extends Component {
           <div className='greeting'> Hi, {this.state.user.username}.</div>
           <div className='group-select'>Please select a group.</div>
             {this.state.user.groups.map(group =>
-              //This maps out all the groups into a list. 
-              <Groups 
+              //This maps out all the groups into a list.
+              <Groups
               //If I don't put a key in, react gets angry with me.
               selectGroup={this.selectGroup.bind(this)}
               key={Math.random()}
               group={group} />
             )}
-            <div className='center'>  
+            <div className='center'>
               <GroupModal postGroup={this.postGroup.bind(this)}/>
             </div>
-            <div className='center'>  
+            <div className='center'>
               <JoinGroupModal addUserToGroup={this.addUserToGroup.bind(this)} userId={this.state.user._id}
               />
             </div>
           </div>
           )
       } else {
-        return ( 
+        return (
           <div>
-            <NavBar 
+            <NavBar
             //Again, funneling info to the navbar.
               //Also passing in login and logout functions.
               loggedIn={true}
               postLogout={this.postLogout.bind(this)}
               postLogin={this.postLogin.bind(this)}
               user={this.state.user.username}  />
-            <VolunteerRequestsContainer 
+            <VolunteerRequestsContainer
             //This also needs to be funneled info
               getIdFromGroupName={this.getIdFromGroupName.bind(this)}
-              user={this.state.user} 
+              user={this.state.user}
               currentGroup={this.state.currentGroup}
               currentData={this.state.currentData}
               getCurrentData={this.getCurrentData.bind(this)}
@@ -274,8 +276,8 @@ class Runner extends Component {
           </div>
           )
         }
-    }  
-  }   
+    }
+  }
 };
 
 
