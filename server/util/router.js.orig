@@ -37,5 +37,9 @@ router.post('/request', controller.request.post);
 // User the router to direct GET requests for /logout
 router.get('/logout', controller.user.logout);
 
+<<<<<<< HEAD
 
 module.exports = router;
+=======
+module.exports = router;
+>>>>>>> 311c4382a44db4f8f93f0a9c07d4e055a7ef6715

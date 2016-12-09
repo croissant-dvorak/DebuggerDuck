@@ -26,7 +26,7 @@ class VolunteerModal extends React.Component {
     //every time the user types a new letter, the state is changed to the current input
     this.setState({location: event.target.value});
   }
-  
+
   onSubmit (){
     this.props.postVolunteer(this.state.location, this.state.time, this.props.currentGroup);
     console.log("On submit at the modal level")
@@ -72,23 +72,23 @@ class VolunteerModal extends React.Component {
           <Modal isOpen={isOpen} onRequestHide={this.hideModal.bind(this)}>
             <ModalHeader >
               <ModalClose onClick={this.hideModal.bind(this)}/>
-              
+
             </ModalHeader>
             <div className='modal-inside'>
               <div>
                 &nbsp; Where are you going? &nbsp;
-                <input 
-                onChange={this.onLocationChange.bind(this)} 
-                className='modal-input' 
-                type="text" 
+                <input
+                onChange={this.onLocationChange.bind(this)}
+                className='modal-input'
+                type="text"
                 id="location"/>
               </div>
               <div>
                 &nbsp; What time? &nbsp;
-                <input 
-                onChange={this.onTimeChange.bind(this)} 
-                className='modal-input second-input' 
-                type="text" 
+                <input
+                onChange={this.onTimeChange.bind(this)}
+                className='modal-input second-input'
+                type="text"
                 id="time"/>
               </div>
             </div>

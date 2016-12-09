@@ -9,7 +9,11 @@ import {
   ModalFooter
 } from 'react-modal-bootstrap';
 
+<<<<<<< HEAD
+class RequestModal extends React.Component {
+=======
 class JoinGroupModal extends React.Component {
+>>>>>>> 311c4382a44db4f8f93f0a9c07d4e055a7ef6715
   constructor(props){
     super(props);
     this.state = {
@@ -26,7 +30,10 @@ class JoinGroupModal extends React.Component {
     this.setState({
       isOpen: false
     });
+<<<<<<< HEAD
+=======
     this.props.addUserToGroup(this.props.userId, this.state.text);
+>>>>>>> 311c4382a44db4f8f93f0a9c07d4e055a7ef6715
     //this.props.postGroup(this.state.text);
   }
 
@@ -87,4 +94,8 @@ class JoinGroupModal extends React.Component {
   }
 }
 
+<<<<<<< HEAD
+export default RequestModal;
+=======
 export default JoinGroupModal;
+>>>>>>> 311c4382a44db4f8f93f0a9c07d4e055a7ef6715

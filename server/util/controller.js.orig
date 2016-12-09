@@ -30,7 +30,11 @@ module.exports = {
     logout: (req, res) => {
       req.session.destroy();
       res.redirect('/');
+<<<<<<< HEAD
+    }, 
+=======
     },
+>>>>>>> 311c4382a44db4f8f93f0a9c07d4e055a7ef6715
     group: {
       get: (req, res) => {
         db.User.findOne({_id: req.params.userId})

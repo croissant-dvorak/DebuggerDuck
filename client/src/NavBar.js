@@ -36,6 +36,7 @@ class NavBar extends Component {
   render() { 
   		return ( 
     	<div className='nav-bar'>
+        <img src="/logo.png" height="60" width="333" className="logo" />
     		<FacebookButton 
           logOut={this.logOut.bind(this)} 
           loggedIn={this.state.loggedIn}/>
