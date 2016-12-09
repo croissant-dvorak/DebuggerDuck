@@ -204,8 +204,8 @@ class App extends Component {
             {this.state.user.groups.map(group =>
               //This maps out all the groups into a list.
               <Groups
-              //If I don't put a key in, react gets angry with me.
               selectGroup={this.selectGroup.bind(this)}
+              //If I don't put a key in, react gets angry with me.
               key={Math.random()}
               group={group} />
             )}
@@ -227,7 +227,7 @@ class App extends Component {
               loggedIn={true}
               postLogout={this.postLogout.bind(this)}
               postLogin={this.postLogin.bind(this)}
-              user={this.state.user.username}  />
+              user={this.state.user}  />
             <VolunteerRequestsContainer
             //This also needs to be funneled info
               user={this.state.user}

@@ -18,6 +18,7 @@ class PickUpOffers extends Component {
     this.state = {
       volunteers: [],
     };
+
     this.getOrdersForGroupId = this.getOrdersForGroupId.bind(this);
     this.getOrdersForGroupId(this.props.group._id);
   }
@@ -46,9 +47,10 @@ class PickUpOffers extends Component {
     //If they do volunteer, this.state.volunteer will change and the page will render immediately and will display their info.
     if (filteredVolunteers.length===0){
       return(
-        <div>
+        <div className="col-md-6">
           <div>
             <VolunteerModal 
+            user={this.user}
             getCurrentData={this.props.getCurrentData} 
             currentGroup={this.props.currentGroup} 
             onSubmit={this.onSubmit.bind(this)} />
@@ -69,8 +71,7 @@ class PickUpOffers extends Component {
           currentGroup={this.props.currentGroup}
           onSubmit={this.onSubmit.bind(this)} />
         </div>
-        {this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup))
-          .map(volunteer =>
+        {this.state.volunteers.map(volunteer =>
             //Render one Volunteer component for each current volunteer in a given group.
             <Volunteer
             //I put math.random because react got angry at me
