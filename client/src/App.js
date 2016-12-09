@@ -20,8 +20,9 @@ import NavBar from './NavBar';
 import LandingPage from './LandingPage.js';
 import Groups from './Groups.js';
 import VolunteerRequestsContainer from './VolunteerRequestsContainer.js';
-import GroupModal from './GroupModal';
-import JoinGroupModal from './JoinGroupModal';
+import GroupModal from './GroupModal.js';
+import JoinGroupModal from './JoinGroupModal.js';
+import Chat from './Chat.js';
 
 //Primary component for App.
 class Runner extends Component {
