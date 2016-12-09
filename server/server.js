@@ -38,11 +38,11 @@ module.exports.NODEPORT = process.env.PORT || 4040;
       .then((data) => {
         //console.log(data);
         if(!data) {
+          console.log('profile', profile)
           new db.User({
             username: profile.displayName,
             fb_id: profile.id,
-            picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal',
-            groups: [{group_id: 2345}]
+            picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal'
           }).save()
           .then((data) => {
 

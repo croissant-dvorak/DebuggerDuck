@@ -197,3 +197,7 @@
 transform: scale(1.1);
 opacity: 0.5;
 }
+
+.logo {
+	background-color: #CAEBF2;
+}
