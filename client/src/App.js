@@ -251,7 +251,8 @@ class Runner extends Component {
               <GroupModal postGroup={this.postGroup.bind(this)}/>
             </div>
             <div className='center'>  
-              <JoinGroupModal />
+              <JoinGroupModal addUserToGroup={this.addUserToGroup.bind(this)}
+              />
             </div>
           </div>
           )
