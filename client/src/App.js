@@ -24,7 +24,7 @@ import GroupModal from './GroupModal';
 import JoinGroupModal from './JoinGroupModal';
 
 //Primary component for App.
-class Runner extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
 //holds the logged in state, username, picture
@@ -243,4 +243,4 @@ class Runner extends Component {
 };
 
 
-export default Runner;
+export default App;

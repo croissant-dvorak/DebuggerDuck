@@ -201,3 +201,10 @@ opacity: 0.5;
 .logo {
 	background-color: #CAEBF2;
 }
+
+.chat {
+	width: 50%;
+}
+.pickups {
+	width: 50%;
+}
