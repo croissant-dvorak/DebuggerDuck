@@ -12,6 +12,7 @@ module.exports.listen = function(http){
     client.on('createRoom', function(roomID) {
       console.log('ROOM--------', roomID)
       client.join(roomID);
+      client.emit('addMessage', 'HOLy FUKCS')
     });
 
     // when the client submits a new line save it to the
