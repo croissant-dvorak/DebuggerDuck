@@ -19,12 +19,11 @@ router.post('/user/:userId/group', controller.user.group.post);
 router.get('/user/loggedin', controller.user.loggedIn);
 router.get('/user/logout', controller.user.logout);
 
-// Use the router to direct GET and POST requests for /group
-router.get('/group', controller.group.get);
+// Use the router to direct GET and POST and Delete requests for /group
+router.get('/group/:groupId', controller.group.get);
 router.post('/group', controller.group.post);
 router.get('/group/:groupId/volunteer', controller.group.volunteer.get);
 router.post('/group/:groupId/message', controller.group.postMessage);
-
 
 router.delete('/delete-group', controller.group.delete);
 
