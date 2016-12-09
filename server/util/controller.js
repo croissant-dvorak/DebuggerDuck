@@ -152,8 +152,9 @@ module.exports = {
       .catch((err) => {
         res.sendStatus(400)
       })
-    }
-  },
+    })
+  }
+},
 
   volunteer: {
     // Volunteer controller functions for GET
