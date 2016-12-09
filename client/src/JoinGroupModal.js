@@ -9,7 +9,7 @@ import {
   ModalFooter
 } from 'react-modal-bootstrap';
 
-class RequestModal extends React.Component {
+class JoinGroupModal extends React.Component {
   constructor(props){
     super(props);
     this.state = {
@@ -87,4 +87,4 @@ class RequestModal extends React.Component {
   }
 }
 
-export default RequestModal;
+export default JoinGroupModal;
