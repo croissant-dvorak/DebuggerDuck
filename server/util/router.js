@@ -22,7 +22,7 @@ router.get('/user/logout', controller.user.logout);
 // Use the router to direct GET and POST requests for /group
 router.get('/group', controller.group.get);
 router.post('/group', controller.group.post);
-router.post('/group/:groupId/message', controller.group.postMessage)
+router.post('/group/:groupId/message', controller.group.postMessage);
 
 router.delete('/delete-group', controller.group.delete);
 
@@ -31,7 +31,7 @@ router.get('/volunteer', controller.volunteer.get);
 router.post('/volunteer', controller.volunteer.post);
 
 // Use the router to direct POST requests for /request
-router.post('/request/:volunteerId', controller.request.post);
+router.post('/request', controller.request.post);
 
 
 // User the router to direct GET requests for /logout

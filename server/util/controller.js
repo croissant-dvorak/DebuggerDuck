@@ -76,9 +76,9 @@ module.exports = {
   group: {
     // Group controller functions for GET
     get: (req, res) => {
-      db.Group.find().exec()
-        .then((groups) => {
-          let response = buildResObj(groups);
+      db.Group.find({_id: req.params.groupId}).exec()
+        .then((group) => {
+          let response = buildResObj(group);
           res.status(200).send(response);
         })
         .catch((err) => {
@@ -127,13 +127,14 @@ module.exports = {
     },
 
     postMessage: (req, res) => {
-      db.Group.findOneAndUpdate({_id: req.params.groupId},
-      {$push: { messages:{user_id: req.body.user_id, picture: req.body.picture, text:req.body.text} } }
-      )
-      .then((data) => {
-        console.log('Message saved to group in DB.', data);
-        res.status(201);
-      })
+      db.Group.findById({_id: req.params.groupId})
+      .then((group) => {
+            group.messages.push(req.body.data)
+            group.save()
+            .then((group) => {
+            console.log('Message saved to group in DB.', data);
+            res.status(201);
+          })
       .catch((err) => {
         res.sendStatus(400)
       })
@@ -179,7 +180,7 @@ module.exports = {
     post: (req, res) => {
 
       db.Order.findOneAndUpdate(
-         {_id: req.param.volunteerId},
+         {_id:req.body.data.volunteerId},
          {$push: { requests:{user_id: req.body.data.username, picture: req.body.data.picture, text:req.body.data.text} } }
         )
       .then((data) => {
