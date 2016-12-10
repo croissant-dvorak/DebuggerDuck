@@ -9,10 +9,7 @@ class Chat extends Component {
     super(props);
     console.log('prrrrrrrrrro', this.props)
     socket.emit('createRoom', this.props.group._id)
-    socket.on('addMessage', function(mess) {
-      console.log('GOT ONE', mess)
-      this.addMessageFn(mess)
-    })
+    
     this.state = {
       messages: []
     };
@@ -25,6 +22,11 @@ class Chat extends Component {
   addMessageFn(mess) {
     this.setState('messages', this.state.messages.concat(mess))
   }
+
+  socket.on('addMessage', function(mess) {
+      console.log('GOT ONE', mess)
+      addMessageFn(mess)
+    })
 
 
   getChatForGroupId(groupId) {
