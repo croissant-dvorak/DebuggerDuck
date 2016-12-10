@@ -1,6 +1,7 @@
 //This component is the child component of volunteerRequestContainer.js and the parent of request.js
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
+import axios from 'axios';
 
 import Request from './Request.js';
 import RequestModal from './RequestModal.js';
