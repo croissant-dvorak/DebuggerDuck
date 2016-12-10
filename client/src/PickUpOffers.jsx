@@ -12,14 +12,15 @@ class PickUpOffers extends Component {
     super(props);
     console.log('prrrrrrrrrro', this.props)
     var socket = io();
-    socket.emit('createRoom', this.props.group._id)
+    // socket.emit('createRoom', this.props.group._id)
     socket.on('addMessage', function(mess) {
       console.log(mess)
     })
     this.state = {
       pickups: [],
       ordersView: true,
-      requests: []
+      requests: [],
+      order: {}
     };
 
     this.getOrdersForGroupId = this.getOrdersForGroupId.bind(this, this.props.group._id);
@@ -27,43 +28,45 @@ class PickUpOffers extends Component {
   }
 
   getOrdersForGroupId(groupId) {
+    console.log("groupId&&&&&&&&******** ", groupId);
     axios.get('/api/group/'+groupId+'/volunteer')
       .then(response => {
-        console.log('Getting Current Data?', response.data.data);
+        console.log('************Getting Current Data?', response.data.data);
         this.setState({pickups: response.data.data});
+        // console.log("pickups ", this.state.pickups);
       })
       .catch(error => {
         console.log('Error while getting current data: ', error);
       })
   }
 
-   changeView(){
+   changeView(pickup){
+    console.log('clicked!!!!!!!!!!!!!!!!!!!!!')
     this.setState({
-      ordersView: !this.state.ordersView,
-      order: this
+      ordersView: false,
+      order: pickup
 
     });
+    console.log(this.state.ordersView)
   }
 
   render() {
-    var orderRequestView = this.state.ordersView ?  
-          <Order 
-          order={this.state.order}
-          />
-           :
-            this.state.pickups.map(pickup =>
+    var orderRequestView = this.state.ordersView ? 
+          this.state.pickups.map(pickup =>
             //Render one Volunteer component for each current volunteer in a given group.
-            <Volunteer
-            //I put math.random because react got angry at me
-            key={Math.random()}
+            <Order 
+            key={pickup._id}
             pickup={pickup}
-            selectThisOrder={this.changeView.bind(this)}
-            // getDataForRendering={this.getDataForRendering.bind(this)}
-            />
-          );
+            selectThisOrder={this.changeView.bind(this, pickup)}
+            />   
+            )         
+           :
+            (<Volunteer
+            pickup={this.state.order}
+            />);
            
-
-    console.log('volunteer count', this.state.pickups.length)
+    // console.log("pickup ", this.state.pickups);
+    // console.log('volunteer count', this.state.pickups.length)
     //Here we check if no one has volunteered yet. If so, we render a div that tells the user that no one has volunteered yet.
     //If they do volunteer, this.state.volunteer will change and the page will render immediately and will display their info.
     if (this.state.pickups.length === 0){

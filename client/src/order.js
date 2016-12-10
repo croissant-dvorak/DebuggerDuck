@@ -61,7 +61,7 @@ class Order extends Component {
 
   render() {
   	return (
-        <div className='volunteer-div'>
+        <div className='volunteer-div' onClick={() => this.props.selectThisOrder(this.props.pickup)}>
           <img className='small-profile-pic' src={this.props.pickup.picture}/>
           {this.props.pickup.order_user} is going to {this.props.pickup.location} at {this.props.pickup.time}.
         </div>
