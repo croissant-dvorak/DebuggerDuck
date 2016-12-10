@@ -36,6 +36,19 @@ class Chat extends Component {
   submitMessage() {
     console.log('PROPS:', this.props)
 
+    axios.post('/group/' + this.props.group._id + '/message',
+      {data: {
+        userId: this.props.user._id,
+        messageText: $('.chatInput input').val()
+      }})
+      .then(response => {
+        console.log('Message posted!', response);
+        this.render();
+      })
+      .catch(error => {
+        console.log('Error while posting message: ', error);
+      });
+
     //     axios.post('/api/volunteer', {data:{
     //     username: this.props.user.username,
     //     location: location,
