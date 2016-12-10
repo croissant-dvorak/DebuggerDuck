@@ -67,6 +67,7 @@ class PickUpOffers extends Component {
             //I put math.random because react got angry at me
             key={Math.random()}
             pickup={pickup}
+            user={this.props.user}
             // getDataForRendering={this.getDataForRendering.bind(this)}
             />
           )}

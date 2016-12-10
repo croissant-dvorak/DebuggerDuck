@@ -9,12 +9,10 @@ import RequestModal from './RequestModal.js';
 class Volunteer extends Component {
   constructor(props) {
     var socket = io;
-    io.createRoom('2233')
+    // io.createRoom('2233')
     super(props);
     this.state = {
       //This info has been funneled down from volunteerRequestContainer, which was funneled down from app.js
-      username: this.props.pickup.order_user,
-      picture: this.props.pickup.picture,
       //we set text as '' because nothing has been entered yet.
       text:'',
       //requests is an array of stuff obtained from the database.
@@ -42,13 +40,12 @@ class Volunteer extends Component {
   }
 
   postRequest(volunteerId, text) {
-      axios.post('/api/request', {data:{
-      //don't remove.
-      username: this.state.user.username,
-      volunteerId: volunteerId,
-      picture: this.state.user.picture,
+    console.log('user id?', this.props.user.userName)
+    axios.post('/api/request', {data:{
+      orderer_userName: this.props.user.userName,
+      user_id: this.props.user._id,
+      picture: this.props.user.picture,
       text: text,
-
       }
     })
       .then(response => {
@@ -65,7 +62,7 @@ class Volunteer extends Component {
   	return (
         <div className='volunteer-div'>
           <img className='small-profile-pic' src={this.props.pickup.picture}/>
-          {this.props.pickup.order_user} is going to {this.props.pickup.location} at {this.props.pickup.time}.
+          {this.props.pickup.orderer_userName} is going to {this.props.pickup.location} at {this.props.pickup.time}.
 
         {this.state.requests.map(request =>
           //this goes through the array of requests and maps them using the child component, Request.js

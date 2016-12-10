@@ -3,7 +3,7 @@ const mongoose = require ('mongoose');
 //This must be called because mongoose's promises library is deprecated
 mongoose.Promise = global.Promise;
 
-const mongodbUri = 'mongodb://'+require('./config.js').mlObj.username+':'+require('./config.js').mlObj.pw+'@ds127998.mlab.com:27998/grabmeacroissant';
+const mongodbUri = 'mongodb://'+require('./config.js').mlObj.userName+':'+require('./config.js').mlObj.pw+'@ds127998.mlab.com:27998/grabmeacroissant';
 mongoose.connect(mongodbUri);
 
 const conn = mongoose.connection;   
