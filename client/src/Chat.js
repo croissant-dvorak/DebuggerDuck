@@ -65,6 +65,7 @@ class Chat extends Component {
       .catch(error => {
         console.log('Error while posting message: ', error);
       });
+    $('.chatInput input').val('');
   }
 
   render() {
