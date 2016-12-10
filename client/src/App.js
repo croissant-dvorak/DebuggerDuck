@@ -28,7 +28,7 @@ import Chat from './Chat.js';
 class App extends Component {
   constructor(props) {
     super(props);
-//holds the logged in state, username, picture
+//holds the logged in state, userName, picture
     this.state = {
       loggedIn: false,
       user : {
@@ -177,7 +177,7 @@ class App extends Component {
           postLogout={this.postLogout.bind(this)}
           postLogin={this.postLogin.bind(this)}
           user={this.state.user} />
-          <div className='greeting'> Hi, {this.state.user.username}.</div>
+          <div className='greeting'> Hi, {this.state.user.userName}.</div>
           <div className='group-select'>Please select a group.</div>
             {this.state.user.groups.map(group =>
               //This maps out all the groups into a list.

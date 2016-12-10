@@ -13,7 +13,7 @@ class Volunteer extends Component {
     super(props);
     this.state = {
       //This info has been funneled down from volunteerRequestContainer, which was funneled down from app.js
-      username: this.props.pickup.order_user,
+      userName: this.props.pickup.order_user,
       picture: this.props.pickup.picture,
       //we set text as '' because nothing has been entered yet.
       text:'',
@@ -44,7 +44,7 @@ class Volunteer extends Component {
   postRequest(volunteerId, text) {
       axios.post('/api/request', {data:{
       //don't remove.
-      username: this.state.user.username,
+      userName: this.state.user.userName,
       volunteerId: volunteerId,
       picture: this.state.user.picture,
       text: text,
