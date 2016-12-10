@@ -6,7 +6,7 @@ import axios from 'axios';
 import Request from './Request.js';
 import RequestModal from './RequestModal.js';
 
-class Volunteer extends Component {
+class Order extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -61,22 +61,13 @@ class Volunteer extends Component {
 
   render() {
   	return (
-        <div className='volunteer-div' onClick={() => this.props.changeView()}>
+        <div className='volunteer-div'>
           <img className='small-profile-pic' src={this.props.pickup.picture}/>
           {this.props.pickup.order_user} is going to {this.props.pickup.location} at {this.props.pickup.time}.
-
-        {this.state.requests.map(request =>
-          //this goes through the array of requests and maps them using the child component, Request.js
-          <Request
-          //I threw math.random as the key because react kept getting angry at me for making duplicate keys??
-            key= {Math.random()}
-            request={request}/>
-          )}
-           <RequestModal onSubmit={this.onSubmit.bind(this)}/>
         </div>
   );
  }
 
 };
 
-export default Volunteer;
+export default Order;

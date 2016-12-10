@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import Volunteer from './Volunteer';
 import VolunteerModal from './VolunteerModal'
+import Order from './order'
 
 //This is a child component of app.js and the parent of volunteer.js (and therefore a grandparent(?) of request.js)
 class PickUpOffers extends Component {
@@ -17,6 +18,8 @@ class PickUpOffers extends Component {
     })
     this.state = {
       pickups: [],
+      ordersView: true,
+      requests: []
     };
 
     this.getOrdersForGroupId = this.getOrdersForGroupId.bind(this, this.props.group._id);
@@ -34,7 +37,32 @@ class PickUpOffers extends Component {
       })
   }
 
+   changeView(){
+    this.setState({
+      ordersView: !this.state.ordersView,
+      order: this
+
+    });
+  }
+
   render() {
+    var orderRequestView = this.state.ordersView ?  
+          <Order 
+          order={this.state.order}
+          />
+           :
+            this.state.pickups.map(pickup =>
+            //Render one Volunteer component for each current volunteer in a given group.
+            <Volunteer
+            //I put math.random because react got angry at me
+            key={Math.random()}
+            pickup={pickup}
+            selectThisOrder={this.changeView.bind(this)}
+            // getDataForRendering={this.getDataForRendering.bind(this)}
+            />
+          );
+           
+
     console.log('volunteer count', this.state.pickups.length)
     //Here we check if no one has volunteered yet. If so, we render a div that tells the user that no one has volunteered yet.
     //If they do volunteer, this.state.volunteer will change and the page will render immediately and will display their info.
@@ -62,15 +90,9 @@ class PickUpOffers extends Component {
           group={this.props.group}
           onSubmit={this.getOrdersForGroupId} />
         </div>
-        {this.state.pickups.map(pickup =>
-            //Render one Volunteer component for each current volunteer in a given group.
-            <Volunteer
-            //I put math.random because react got angry at me
-            key={Math.random()}
-            pickup={pickup}
-            // getDataForRendering={this.getDataForRendering.bind(this)}
-            />
-          )}
+        <div>
+       {orderRequestView}
+       </div>
         <div className='center'><button className='red-button new-group' onClick={this.props.selectDifferentGroup}>Select a different group</button></div>
      </div>
     );
