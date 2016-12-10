@@ -22,10 +22,12 @@ module.exports = {
         })
     },
     loggedIn: (req, res) => {
-      if (req.user && req.user.id) {
-        res.send(true);
+      if (req.user !== undefined){
+        if (req.user.id) {
+          res.send(true);
+        }
       } else {
-        res.send(false);
+        res.send(false)
       }
     },
     logout: (req, res) => {
@@ -172,7 +174,7 @@ module.exports = {
     // Volunteer controller functions for POST
     post: (req, res) => {
       new db.Order({
-        orderer_name: req.body.data.userName,
+        orderer_userName: req.body.data.orderer_userName,
         location: req.body.data.location,
         time: req.body.data.time,
         picture: req.body.data.picture,
@@ -194,23 +196,31 @@ module.exports = {
     post: (req, res) => {
       db.Order.findById({_id: req.body.data.volunteerId})
         .then((order) => {
-          res.sendStatus(202);
-        //   order.requests = order.requests.map(request => {
-        //     if (request.user_id === req.body.data.username)
-        //   })
-
-
-        // {user_id: req.body.data.username, picture: req.body.data.picture, text:req.body.data.text}
-        // {$push: { requests: } }
-
+          var updated = false;
+          order.requests = order.requests.map(request => {
+            if (request.user_id === req.body.data.user_id) {
+              request.text = req.body.data.text;
+              updated = true;
+            }
+            return request;
+          })
+          if (!updated) {
+            order.requests.push({
+              userName: req.body.data.userName, 
+              user_id: req.body.data.user_id, 
+              picture: req.body.data.picture, 
+              text: req.body.data.text,
+            })
+          }
+          order.save()
+            .then( (order) => {
+              res.status(201).send(order)
+            })
         })
-        .then((data) => {
-          //console.log('Data sent to DB.', data);
-          res.status(201).send(data);
+        .catch((err) => {
+          console.log('return error', err)
+          res.sendStatus(400)
         })
-      .catch((err) => {
-        res.sendStatus(400)
-      })
       //console.log('Request POST', req);
 
    }

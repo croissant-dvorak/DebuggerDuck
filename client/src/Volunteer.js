@@ -35,22 +35,22 @@ class Volunteer extends Component {
     //console.log('Text?', text, "volunteer id", this.props.volunteer._id);
     this.postRequest(this.props.pickup._id, text);
     this.setState({text:''});
-    this.props.getDataForRendering();
     // this.setState({requests:this.props.volunteer.requests})
   }
 
   postRequest(volunteerId, text) {
-    console.log('user id?', this.props.user.userName)
+    console.log('volunteer id', volunteerId, 'text', text)
     axios.post('/api/request', {data:{
-      orderer_userName: this.props.user.userName,
+      volunteerId: volunteerId,
       user_id: this.props.user._id,
       picture: this.props.user.picture,
+      userName: this.props.user.userName,
       text: text,
       }
     })
       .then(response => {
         console.log('Request submitted: ', response.data);
-        console.log('USER', this.state)
+        this.setState({requests: response.data.requests});
       })
       .catch(error => {
         console.log('Error while submitting food request:', error);
