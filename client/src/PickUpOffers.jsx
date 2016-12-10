@@ -45,7 +45,12 @@ class PickUpOffers extends Component {
       order: pickup
 
     });
-    console.log(this.state.ordersView)
+  }
+
+  viewOrders(){
+    this.setState({
+      ordersView: true,
+    })
   }
 
   render() {
@@ -62,6 +67,7 @@ class PickUpOffers extends Component {
             (<Volunteer
             pickup={this.state.order}
             user={this.props.user}
+            viewOrders={this.viewOrders.bind(this)}
             />);
            
     // console.log("pickup ", this.state.pickups);
