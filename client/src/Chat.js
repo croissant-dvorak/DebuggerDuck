@@ -12,11 +12,10 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     console.log('prrrrrrrrrro', this.props)
-    socket.emit('createRoom', this.props.group._id)
     this.state = {
-      messages: []
+      messages: [],
+      socket: socket
     };
-    socket.on('addMessage', this.addMessageFn.bind(this) )
     this.getChatForGroupId(this.props.group._id);
     // this.getChatForGroupId(this.props.group._id);
   }
@@ -43,7 +42,8 @@ class Chat extends Component {
 
 
   submitMessage(event) {
-    socket.emit('addMessage', {
+    this.state.socket.emit('addMessage', {
+      roomId: this.props.group._id,
       user_id: this.props.user._id,
       userName: this.props.user.userName,
       picture: this.props.user.picture,
@@ -68,7 +68,13 @@ class Chat extends Component {
     $('.chatInput input').val('');
   }
 
+  componentDidMount() {
+    this.state.socket.emit('createRoom', this.props.group._id)
+    this.state.socket.on('addMessage', this.addMessageFn.bind(this) )
+  }
+
   render() {
+    this.state.socket.emit('createRoom', this.props.group._id)
     return (
     <div className="chatBox">
       <div className="messagesBox">
@@ -76,9 +82,9 @@ class Chat extends Component {
         this.state.messages.map( (message) => <Message text={message.text} userName={message.userName} /> )
         }
     </div>
-      <form className="chatInput">
+      <form className="chatInput" onSubmit={function(){ return this.submitMessage(event) }.bind(this)}>
         <input type="text" />
-        <input type="button" value="send" onClick={function(){ return this.submitMessage(event) }.bind(this)} />
+        <input type="button" value="Send Message" onClick={function(){ return this.submitMessage(event) }.bind(this)} />
       </form>
     </div>
     )
