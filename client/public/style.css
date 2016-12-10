@@ -212,7 +212,7 @@
 }
 
 .orange {
-  background-color: #FFC78F;
+  background-color: #FFC202;
 }
 
 .top-margin {
@@ -297,6 +297,10 @@
 
 .yellow-font {
   color: #FFC202;
+}
+
+.yellow-background {
+  background-color: #FFC202;
 }
 
 
