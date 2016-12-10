@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import FacebookButton from './FacebookButton.js'
+import axios from 'axios';
 
 import {
   Modal,
@@ -17,8 +18,16 @@ class NavBar extends Component {
 
     this.state = {
       loggedIn: false,
-      displayPhoneNumberModal: false,
+      isOpen: false,
+      phoneEntry : '',
     };
+
+    this.login = this.login.bind(this);
+    this.logOut = this.logOut.bind(this);
+    this.openModal = this.openModal.bind(this);
+    this.hideModal = this.hideModal.bind(this);
+    this.onPhoneChange = this.onPhoneChange.bind(this);
+    this.submitPhoneNumber = this.submitPhoneNumber.bind(this);
   }
 
   //Note: Navbar does not rerender when the app renders. How can we change this??
@@ -28,31 +37,41 @@ class NavBar extends Component {
   
   //login and logOut invoke the functions passed from App.
   login() {
-  	this.setState({loggedIn: true});
+    this.setState({loggedIn: true});
     console.log('Logout triggered from Navbar');
     this.props.postLogin();
-	 }
+   }
   //logout updates local state and runs postLogout, inherited from App. 
   logOut() {
     this.setState({loggedIn: false})
     this.props.postLogout();
   }
-
-  openModal (){
+  openModal() {
     this.setState({
       isOpen: true
     });
   };
-
-  hideModal(){
+  hideModal() {
     this.setState({
       isOpen: false
     });
   };
-
-  onClick() {
-    console.log('clicked')
+  onPhoneChange(event) {
+    this.setState({
+      phoneEntry: event.target.value,
+    })
   }
+  submitPhoneNumber() {
+    this.hideModal();
+    axios.put('/api/user/' + this.props.user._id, {data:{"phoneNumber": this.state.phoneEntry}})
+      .then( response => {
+        
+      })
+      .catch(error => {
+        console.log('Error while adding phone number:', error);
+      });
+  }
+
   render() {
     var phoneRender;
     if (this.props.user.phoneNumber) {
@@ -72,44 +91,34 @@ class NavBar extends Component {
     };
     let {isOpen, isSubOpen} = this.state;
 
-		return ( 
-  	<div className='nav-bar'>
+  return ( 
+    <div className='nav-bar'>
       <a href="/"><img src="/logo.png" height="60" width="333" className="logo" /></a>
-  		<FacebookButton 
-        logOut={this.logOut.bind(this)} 
+      <FacebookButton 
+        logOut={this.logOut} 
         loggedIn={this.state.loggedIn}/>
-  		{/**<div className='karma'>Karma: {this.state.karma}</div>*/}
       <img className='nav-pic' src={this.props.user.picture}/>
       <div className='userName'>
         <div>{this.props.user.userName}</div>
         <div>{phoneRender}</div>
       </div>
 
-      <Modal isOpen={isOpen} onRequestHide={this.hideModal.bind(this)}>
+      <Modal isOpen={isOpen} onRequestHide={this.hideModal}>
             <ModalHeader >
-              <ModalClose onClick={this.hideModal.bind(this)}/>
-
+              <ModalClose onClick={this.hideModal}/>
             </ModalHeader>
             <div className='modal-inside'>
               <div>
-                &nbsp; Where are you going? &nbsp;
+              &nbsp; Where is your phone number? &nbsp;
                 <input
-                onChange={}
+                onChange={this.onPhoneChange}
                 className='modal-input'
                 type="text"
-                id="location"/>
-              </div>
-              <div>
-                &nbsp; What time? &nbsp;
-                <input
-                onChange={}
-                className='modal-input second-input'
-                type="text"
-                id="time"/>
+                id="location" />
               </div>
             </div>
             <ModalFooter>
-              <button className="red-button" onClick={this.onSubmit}>
+              <button className="red-button" onClick={this.submitPhoneNumber}>
                 Submit
               </button>
             </ModalFooter>

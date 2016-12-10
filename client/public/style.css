@@ -87,6 +87,15 @@
   margin-top: 6px;
 }
 
+.userName div {
+  background-color: #CAEBF2;
+}
+
+.userName small {
+  background-color: #CAEBF2;
+  cursor: pointer;
+}
+
 .nav-bar-spacer {
   width: 200px;
 }

@@ -14,6 +14,7 @@ const controller = require('./controller');
 //router.get('/profile', controller.login.profile);
 
 router.get('/user', controller.user.get);
+router.put('/user/:userId', controller.user.put);
 router.get('/user/:userId/group', controller.user.group.get);
 router.post('/user/:userId/group', controller.user.group.post);
 router.get('/user/loggedin', controller.user.loggedIn);

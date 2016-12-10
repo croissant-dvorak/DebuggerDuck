@@ -21,6 +21,18 @@ module.exports = {
           res.sendStatus(400);
         })
     },
+    put: (req, res) => {
+      console.log('update user', req.params.userId, 'with', req.body.data)
+      db.User.update({_id: req.params.userId}, req.body.data)
+        .then((user) => {
+          console.log('after update', user);
+          res.sendStatus(201);
+        })
+        .catch((err) => {
+          console.error(err);
+          res.sendStatus(400);
+        })
+    },
     loggedIn: (req, res) => {
       if (req.user !== undefined){
         if (req.user.id) {
