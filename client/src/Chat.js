@@ -17,29 +17,31 @@ class Chat extends Component {
       messages: []
     };
 
-    this.getChatForGroupId = this.getChatForGroupId.bind(this);
+    this.getChatForGroupId(this.props.group._id);
     // this.getChatForGroupId(this.props.group._id);
   }
 
   getChatForGroupId(groupId) {
-    axios.get('/api/group/'+groupId+'/chat')
+    axios.get('/api/group/' + groupId)
       .then(response => {
-        console.log('Getting Current Data?', response.data.data);
-        this.setState({volunteers: response.data.data});
+        console.log('MESSAGES FROM CHAT.JS', response.data.data[0].messages);
+        this.setState({messages: response.data.data[0].messages});
       })
       .catch(error => {
-        console.log('Error while getting current data: ', error);
+        console.log('ERROR MESSAGES GET FROM CHAT.JS', error);
       })
   }
 
 
-  submitMessage() {
+  submitMessage(event) {
     console.log('PROPS:', this.props)
+    event.preventDefault();
 
-    axios.post('/group/' + this.props.group._id + '/message',
+    axios.post('api/group/' + this.props.group._id + '/message',
       {data: {
-        userId: this.props.user._id,
-        messageText: $('.chatInput input').val()
+        user_id: this.props.user._id,
+        picture: this.props.user.picture,
+        text: $('.chatInput input').val()
       }})
       .then(response => {
         console.log('Message posted!', response);
@@ -78,7 +80,7 @@ class Chat extends Component {
     </div>
       <form className="chatInput">
         <input type="text" />
-        <button onClick={this.submitMessage} >send a chat!</button>
+        <input type="button" value="send" onClick={function(){ return this.submitMessage(event) }.bind(this)} />
       </form>
     </div>
     )
