@@ -24,8 +24,8 @@ const UserSchema = new Schema ({
 // }
 
 // UserSchema.pre('save', function(next) {
-//   let username = getNameFromFb(input);
-//   this.username = name;
+//   let userName = getNameFromFb(input);
+//   this.userName = name;
 //   let picture = getPicFromFb(input);
 //   this.picture = picture;
 //   next();

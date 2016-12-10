@@ -158,7 +158,7 @@ module.exports = {
     post: (req, res) => {
 
       new db.Order({
-        order_user: req.body.data.username,
+        order_user: req.body.data.userName,
         location: req.body.data.location,
         time: req.body.data.time,
         picture: req.body.data.picture,
@@ -181,7 +181,7 @@ module.exports = {
 
       db.Order.findOneAndUpdate(
          {_id:req.body.data.volunteerId},
-         {$push: { requests:{user_id: req.body.data.username, picture: req.body.data.picture, text:req.body.data.text} } }
+         {$push: { requests:{user_id: req.body.data.userName, picture: req.body.data.picture, text:req.body.data.text} } }
         )
       .then((data) => {
         //console.log('Data sent to DB.', data);
