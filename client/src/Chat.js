@@ -34,8 +34,7 @@ class Chat extends Component {
 
 
   submitChat() {
-
-    console.log($('.'))
+      console.log($('.'))
   }
 
   render() {
