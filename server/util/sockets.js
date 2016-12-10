@@ -4,12 +4,9 @@ const stories = require('./controller.js')
 
 module.exports.listen = function(http){
   var io = socketio(http)
-  //establish socket connection
   io.on('connection', function(client){
-    // console.log("socket running")
-    //here's how we create a new room
+
     client.on('createRoom', function(roomId) {
-      // console.log('ROOM--------', roomId)
       client.join(roomId);
     });
 
