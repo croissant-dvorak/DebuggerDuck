@@ -3,6 +3,10 @@ module.exports = {
        userName: 'example',
        pw: 'example'
    },
+    aws: {
+        accessKeyId: '',
+        secretAccessKey: '',
+    },
    fbObj: {
        clientID: 'example',
        clientSecret: 'example',
