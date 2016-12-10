@@ -112,7 +112,7 @@ app.get('/facebook/oauth', passport.authenticate('facebook', {failureRedirect: '
       session: req.sessionID,
       userID: req.user.id
     }
-    res.cookie('fr-session', cookie, { maxAge: 900000, httpOnly: true }).redirect('/');
+    res.cookie('fr-session', cookie, { maxAge: 9000000, httpOnly: true }).redirect('/');
 });
 
 // Listen for requests on /api and then use the router to determine
