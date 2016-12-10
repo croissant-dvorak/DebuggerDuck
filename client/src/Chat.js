@@ -7,12 +7,6 @@ import Message from './message.js'
 class Chat extends Component {
   constructor(props) {
     super(props);
-    axios.get('/api/group/' + this.props.groupId + '/volunteer').then(response => {
-      console.log('Axios Response data for Chat component:', response.data);
-      this.setState({messages: response.data});
-    }).catch(error => {
-      console.log('Error in Chat component axios call:', error);
-    })
     console.log('prrrrrrrrrro', this.props)
     var socket = io();
     socket.emit('createRoom', this.props.group._id)
@@ -22,24 +16,38 @@ class Chat extends Component {
     this.state = {
       messages: []
     };
+
+    this.getChatForGroupId = this.getChatForGroupId.bind(this);
+    this.getChatForGroupId(this.props.group._id);
+  }
+
+  getChatForGroupId(groupId) {
+    axios.get('/api/group/'+groupId+'/cats')
+      .then(response => {
+        console.log('Getting Current Data?', response.data.data);
+        this.setState({volunteers: response.data.data});
+      })
+      .catch(error => {
+        console.log('Error while getting current data: ', error);
+      })
   }
 
 
   submitChat() {
-    $('.chat')
+    console.log('askjdflksdf')
   }
 
   render() {
     return (
-    <div class="chat">
-      <div class="messages">
+    <div className="col-md-6">
+      <div className="messages">
         {
         this.state.messages.map( (message) => <Message messageText={message.text} userName={message.user} /> )
       }
     </div>
-      <form class="chatInput" method="post" action={"/api/group" + this.props.group._id + '/message'}>
-        <input type="text"></input>
-        <input onClick={submitChat}><a href="">SUBMIT MESSAGE</a></input>
+      <form className="chatInput" method="post" action={"/api/group" + this.props.group._id + '/message'}>
+        <input type="text" />
+        <input onClick={this.submitChat} />
       </form>
     </div>
     )

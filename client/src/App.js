@@ -205,10 +205,10 @@ class App extends Component {
             {this.state.user.groups.map(group =>
               //This maps out all the groups into a list.
               <Groups
-              selectGroup={this.selectGroup.bind(this)}
-              //If I don't put a key in, react gets angry with me.
-              key={Math.random()}
-              group={group} />
+                selectGroup={this.selectGroup.bind(this)}
+                //If I don't put a key in, react gets angry with me.
+                key={Math.random()}
+                group={group} />
             )}
             <div className='center'>
               <GroupModal postGroup={this.postGroup.bind(this)}/>
