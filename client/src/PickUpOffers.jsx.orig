@@ -12,7 +12,7 @@ class PickUpOffers extends Component {
     super(props);
     console.log('prrrrrrrrrro', this.props)
     var socket = io();
-    socket.emit('createRoom', this.props.group._id)
+    // socket.emit('createRoom', this.props.group._id)
     socket.on('addMessage', function(mess) {
       console.log(mess)
     })
@@ -28,10 +28,12 @@ class PickUpOffers extends Component {
   }
 
   getOrdersForGroupId(groupId) {
+    console.log("groupId&&&&&&&&******** ", groupId);
     axios.get('/api/group/'+groupId+'/volunteer')
       .then(response => {
         console.log('************Getting Current Data?', response.data.data);
         this.setState({pickups: response.data.data});
+        // console.log("pickups ", this.state.pickups);
       })
       .catch(error => {
         console.log('Error while getting current data: ', error);
@@ -61,7 +63,6 @@ class PickUpOffers extends Component {
            :
             (<Volunteer
             pickup={this.state.order}
-            user={this.props.user}
             />);
            
     // console.log("pickup ", this.state.pickups);
@@ -92,9 +93,22 @@ class PickUpOffers extends Component {
           group={this.props.group}
           onSubmit={this.getOrdersForGroupId} />
         </div>
+<<<<<<< HEAD
         <div>
        {orderRequestView}
        </div>
+=======
+        {this.state.pickups.map(pickup =>
+            //Render one Volunteer component for each current volunteer in a given group.
+            <Volunteer
+            //I put math.random because react got angry at me
+            key={Math.random()}
+            pickup={pickup}
+            user={this.props.user}
+            // getDataForRendering={this.getDataForRendering.bind(this)}
+            />
+          )}
+>>>>>>> 7e2785f69f1db20ad55a53ae382b29dfc913dea2
         <div className='center'><button className='red-button new-group' onClick={this.props.selectDifferentGroup}>Select a different group</button></div>
      </div>
     );

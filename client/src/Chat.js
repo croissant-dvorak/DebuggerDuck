@@ -65,6 +65,7 @@ class Chat extends Component {
       .catch(error => {
         console.log('Error while posting message: ', error);
       });
+    $('.chatInput input').val('');
   }
 
   componentDidMount() {
@@ -81,9 +82,9 @@ class Chat extends Component {
         this.state.messages.map( (message) => <Message text={message.text} userName={message.userName} /> )
         }
     </div>
-      <form className="chatInput">
+      <form className="chatInput" onSubmit={function(){ return this.submitMessage(event) }.bind(this)}>
         <input type="text" />
-        <input type="button" value="send" onClick={function(){ return this.submitMessage(event) }.bind(this)} />
+        <input type="button" value="Send Message" onClick={function(){ return this.submitMessage(event) }.bind(this)} />
       </form>
     </div>
     )
