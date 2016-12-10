@@ -33,8 +33,26 @@ class Chat extends Component {
   }
 
 
-  submitChat() {
-    console.log('askjdflksdf')
+  submitMessage() {
+    console.log('PROPS:', this.props)
+
+    //     axios.post('/api/volunteer', {data:{
+    //     username: this.props.user.username,
+    //     location: location,
+    //     time:  time,
+    //     picture: this.props.user.picture,
+    //     groupId: this.props.group._id,
+    //     requests: [],
+    //   }
+    // })
+    // .then(response => {
+    //   console.log('Volunteer posted! ',response);
+    //   // this.getCurrentData();
+    //   this.render();
+    // })
+    // .catch(error => {
+    //   console.log('Error while posting Volunteer: ',error);
+    // });
   }
 
   render() {
@@ -43,11 +61,11 @@ class Chat extends Component {
       <div className="messagesBox">
         {
         this.state.messages.map( (message) => <Message messageText={message.text} userName={message.user} /> )
-      }
+        }
     </div>
-      <form className="chatInput" method="post" action={"/api/group/" + this.props.group._id + '/message'}>
+      <form className="chatInput">
         <input type="text" />
-        <button onClick={this.submitChat} >send a chat!</button>
+        <button onClick={this.submitMessage} >send a chat!</button>
       </form>
     </div>
     )
