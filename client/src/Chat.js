@@ -37,6 +37,7 @@ class Chat extends Component {
     axios.post('api/group/' + this.props.group._id + '/message',
       {data: {
         user_id: this.props.user._id,
+        userName: this.props.user.userName,
         picture: this.props.user.picture,
         text: $('.chatInput input').val()
       }})
