@@ -93,7 +93,7 @@ class App extends Component {
   addUserToGroup(userId, groupId){
     return axios.post('/api/user/' + userId + '/group', {data: {_id: groupId}})
       .then( response => {
-        this.getGroupsForUserId(userId);
+        this.getUserData();
         return response.data;
       })
       .catch(error => {
