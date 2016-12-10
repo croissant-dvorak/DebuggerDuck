@@ -234,13 +234,19 @@
 }
 
 .chatBox {
-  background-color: grey;
-  height: 500px;
-  width: 450px;
+	background-color: grey;
+	height: 505px;
+	max-width: 60%;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+.chatInput {
+	display: block;
 }
 
 .messagesBox {
-  height: 100%;
-  border: 1px solid black;
-  background: transparent;
+	height: 94%;
+	border: 1px solid black;
+	background: transparent;
 }
