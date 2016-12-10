@@ -34,7 +34,8 @@ class Chat extends Component {
 
 
   submitChat() {
-    console.log('askjdflksdf')
+
+    console.log($('.'))
   }
 
   render() {
@@ -46,8 +47,8 @@ class Chat extends Component {
       }
     </div>
       <form className="chatInput" method="post" action={"/api/group" + this.props.group._id + '/message'}>
-        <input type="text" />
-        <input onClick={this.submitChat} />
+        <input type="text" name="newMessage"/>
+        <input type="submit" value="Post Message" onClick={this.submitChat} />
       </form>
     </div>
     )
