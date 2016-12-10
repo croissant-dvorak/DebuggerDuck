@@ -42,6 +42,7 @@ class App extends Component {
     this.postLogin = this.postLogin.bind(this);
     this.postLogout = this.postLogout.bind(this);
     this.addUserToGroup = this.addUserToGroup.bind(this);
+    this.selectDifferentGroup = this.selectDifferentGroup.bind(this);
   }
 
   ///Run functions on component load so data is available.
@@ -66,7 +67,7 @@ class App extends Component {
     this.setState({currentGroup: group});
   }
   selectDifferentGroup(){
-    this.setState({currentGroup:''});
+    this.setState({currentGroup: undefined});
     //this rerenders the app to go back to option 2 (mentioned above)
   }
 
@@ -209,7 +210,7 @@ class App extends Component {
               user={this.state.user}
               group={this.state.currentGroup}
               //We pass down the selectDifferentGroup function to this component since the button is rendered there
-              selectDifferentGroup={this.selectDifferentGroup.bind(this)} />
+              selectDifferentGroup={this.selectDifferentGroup} />
           </div>
           )
         }

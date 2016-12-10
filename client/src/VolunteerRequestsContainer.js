@@ -13,7 +13,7 @@ class VolunteerRequestContainer extends Component {
     return (
       <div className="display">
         <Chat user={this.props.user} group={this.props.group} />
-        <PickUpOffers user={this.props.user} group={this.props.group} />
+        <PickUpOffers user={this.props.user} group={this.props.group} selectDifferentGroup={this.props.selectDifferentGroup}  />
       </div>
     )
   }
