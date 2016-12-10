@@ -45,7 +45,12 @@ class PickUpOffers extends Component {
       order: pickup
 
     });
-    console.log(this.state.ordersView)
+  }
+
+  viewOrders(){
+    this.setState({
+      ordersView: true,
+    })
   }
 
   render() {
@@ -62,6 +67,7 @@ class PickUpOffers extends Component {
             (<Volunteer
             pickup={this.state.order}
             user={this.props.user}
+            viewOrders={this.viewOrders.bind(this)}
             />);
            
     // console.log("pickup ", this.state.pickups);
@@ -78,7 +84,7 @@ class PickUpOffers extends Component {
             onSubmit={this.getOrdersForGroupId} />
           </div>
           <div className='no-requests center'>No one has volunteered to grab food yet. Why don't you go first?</div>
-          <div className='center'><button className='red-button new-group' onClick={this.props.selectDifferentGroup}>Select a different group</button></div>
+          <div className='center'><button className='green-button new-group' onClick={this.props.selectDifferentGroup}>Select a different group</button></div>
         </div>
         )
     } else {
@@ -95,7 +101,7 @@ class PickUpOffers extends Component {
         <div>
        {orderRequestView}
        </div>
-        <div className='center'><button className='red-button new-group' onClick={this.props.selectDifferentGroup}>Select a different group</button></div>
+        <div className='center'><button className='green-button new-group' onClick={this.props.selectDifferentGroup}>Select a different group</button></div>
      </div>
     );
     }

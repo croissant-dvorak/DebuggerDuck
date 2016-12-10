@@ -5,6 +5,7 @@ import axios from 'axios';
 
 import Request from './Request.js';
 import RequestModal from './RequestModal.js';
+import BackButton from './BackButton.js';
 
 class Volunteer extends Component {
   constructor(props) {
@@ -61,6 +62,8 @@ class Volunteer extends Component {
 
   render() {
   	return (
+      <div>
+      <BackButton viewOrders={this.props.viewOrders}/>
         <div className='volunteer-div'>
           <img className='small-profile-pic' src={this.props.pickup.picture}/>
           {this.props.pickup.orderer_userName} is going to {this.props.pickup.location} at {this.props.pickup.time}.
@@ -73,6 +76,7 @@ class Volunteer extends Component {
             request={request}/>
           )}
            <RequestModal onSubmit={this.onSubmit.bind(this)}/>
+        </div>
         </div>
   );
  }
