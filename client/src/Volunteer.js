@@ -7,6 +7,8 @@ import RequestModal from './RequestModal.js';
 
 class Volunteer extends Component {
   constructor(props) {
+    var socket = io;
+    io.createRoom('2233')
     super(props);
     console.log("Volunteer Props: ", props)
     this.state = {

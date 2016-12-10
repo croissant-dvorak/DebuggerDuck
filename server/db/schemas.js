@@ -33,7 +33,13 @@ const UserSchema = new Schema ({
 const GroupSchema = new Schema ({
 	// Will automatically generate group id
 	name: String,
-	users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+	users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+	messages: [{
+		user_id: String,
+		picture: String,
+		text: String,
+		createdAt: { type : Date, default: Date.now }
+	}]
 })
 
 const OrderSchema = new Schema ({
@@ -41,11 +47,13 @@ const OrderSchema = new Schema ({
 	order_user: String,
 	location: String,
 	time: String,
-	group_id: String,
+	group_id: Schema.Types.ObjectId,
+	active: Boolean,
 	picture: String,
 	requests: [{user_id: String, picture: String, text: String}],
 	createdAt: { type : Date, default: Date.now }
 })
+
 
 db.User = mongoose.model('User', UserSchema);
 db.Group = mongoose.model('Group', GroupSchema);
