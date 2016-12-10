@@ -6,10 +6,10 @@
 //                             App
 //          /             /     |       \
 //  NavBar    LandingPage     Groups    VolunteerRequestContainer
-//       \     /                |            |              |
-//       FacebookButton    Group Modal    volunteer     volunteer modal
-//                                          /   \
-//                                   request    request modal
+//       \     /                |         |        |
+//       FacebookButton    Group Modal  chat  pickupoffers............................
+//                                           /     \          \                 \
+//                                    request  request modal  volunteer modal   volunteer
 
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
@@ -20,14 +20,15 @@ import NavBar from './NavBar';
 import LandingPage from './LandingPage.js';
 import Groups from './Groups.js';
 import VolunteerRequestsContainer from './VolunteerRequestsContainer.js';
-import GroupModal from './GroupModal';
-import JoinGroupModal from './JoinGroupModal';
+import GroupModal from './GroupModal.js';
+import JoinGroupModal from './JoinGroupModal.js';
+import Chat from './Chat.js';
 
 //Primary component for App.
-class Runner extends Component {
+class App extends Component {
   constructor(props) {
     super(props);
-//holds the logged in state, username, picture
+//holds the logged in state, userName, picture
     this.state = {
       loggedIn: false,
       user : {
@@ -41,6 +42,7 @@ class Runner extends Component {
     this.postLogin = this.postLogin.bind(this);
     this.postLogout = this.postLogout.bind(this);
     this.addUserToGroup = this.addUserToGroup.bind(this);
+    this.selectDifferentGroup = this.selectDifferentGroup.bind(this);
   }
 
   ///Run functions on component load so data is available.
@@ -65,7 +67,7 @@ class Runner extends Component {
     this.setState({currentGroup: group});
   }
   selectDifferentGroup(){
-    this.setState({currentGroup:''});
+    this.setState({currentGroup: undefined});
     //this rerenders the app to go back to option 2 (mentioned above)
   }
 
@@ -92,7 +94,7 @@ class Runner extends Component {
   addUserToGroup(userId, groupId){
     return axios.post('/api/user/' + userId + '/group', {data: {_id: groupId}})
       .then( response => {
-        this.getGroupsForUserId(userId);
+        this.getUserData();
         return response.data;
       })
       .catch(error => {
@@ -129,8 +131,10 @@ class Runner extends Component {
     axios.get('/api/user/loggedin')
       .then(response => {
         console.log('Login successful? ', response);
-        this.getUserData();
-        this.setState({loggedIn: true});
+        if (response.data) {
+          this.getUserData();
+          this.setState({loggedIn: true});
+        }
       })
       .catch(error => {
         console.log('Error occurred during login ', error);
@@ -148,30 +152,6 @@ class Runner extends Component {
       })
       .catch(error => {
         console.log('Error while logging out: ', error);
-      })
-  }
-
-  // postRequest sends a food request to the server.
-  // volunteerId is the mongo db record for the volunteer (in the mongo Order table.)
-    //text is what the user requested.
-    //username for hte request is pulled from state.
-
-  postRequest(volunteerId, text) {
-      axios.post('/api/request', {data:{
-      //don't remove.
-      username: this.state.user.username,
-      volunteerId: volunteerId,
-      picture: this.state.user.picture,
-      text: text,
-
-      }
-    })
-      .then(response => {
-        console.log('Request submitted: ', response.data);
-        console.log('USER', this.state)
-      })
-      .catch(error => {
-        console.log('Error while submitting food request:', error);
       })
   }
 
@@ -199,15 +179,15 @@ class Runner extends Component {
           postLogout={this.postLogout.bind(this)}
           postLogin={this.postLogin.bind(this)}
           user={this.state.user} />
-          <div className='greeting'> Hi, {this.state.user.username}.</div>
-          <div className='group-select'>Please select a group.</div>
+          <div className='greeting'> Hi, {this.state.user.userName}.</div>
+          <div className='group-select yellow-font'>Please select a group.</div>
             {this.state.user.groups.map(group =>
               //This maps out all the groups into a list.
               <Groups
-              //If I don't put a key in, react gets angry with me.
-              selectGroup={this.selectGroup.bind(this)}
-              key={Math.random()}
-              group={group} />
+                selectGroup={this.selectGroup.bind(this)}
+                //If I don't put a key in, react gets angry with me.
+                key={Math.random()}
+                group={group} />
             )}
             <div className='center'>
               <GroupModal postGroup={this.postGroup.bind(this)}/>
@@ -227,14 +207,12 @@ class Runner extends Component {
               loggedIn={true}
               postLogout={this.postLogout.bind(this)}
               postLogin={this.postLogin.bind(this)}
-              user={this.state.user.username}  />
+              user={this.state.user}  />
             <VolunteerRequestsContainer
-            //This also needs to be funneled info
               user={this.state.user}
               group={this.state.currentGroup}
-              postRequest={this.postRequest.bind(this)}
               //We pass down the selectDifferentGroup function to this component since the button is rendered there
-              selectDifferentGroup={this.selectDifferentGroup.bind(this)} />
+              selectDifferentGroup={this.selectDifferentGroup} />
           </div>
           )
         }
@@ -243,4 +221,4 @@ class Runner extends Component {
 };
 
 
-export default Runner;
+export default App;

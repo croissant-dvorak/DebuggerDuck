@@ -40,7 +40,7 @@ module.exports.NODEPORT = process.env.PORT || 4040;
         if(!data) {
           console.log('profile', profile)
           new db.User({
-            username: profile.displayName,
+            userName: profile.displayName,
             fb_id: profile.id,
             picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal'
           }).save()
@@ -112,7 +112,7 @@ app.get('/facebook/oauth', passport.authenticate('facebook', {failureRedirect: '
       session: req.sessionID,
       userID: req.user.id
     }
-    res.cookie('fr-session', cookie, { maxAge: 900000, httpOnly: true }).redirect('/');
+    res.cookie('fr-session', cookie, { maxAge: 9000000, httpOnly: true }).redirect('/');
 });
 
 // Listen for requests on /api and then use the router to determine

@@ -36,13 +36,13 @@ class NavBar extends Component {
   render() { 
   		return ( 
     	<div className='nav-bar'>
-        <a href="/"><img src="/logo.png" height="60" width="333" className="logo" /></a>
+        <a href="/"><img src="/Loogo.png" height="60" width="333" className="logo" /></a>
     		<FacebookButton 
           logOut={this.logOut.bind(this)} 
           loggedIn={this.state.loggedIn}/>
     		{/**<div className='karma'>Karma: {this.state.karma}</div>*/}
         <img className='nav-pic' src={this.props.user.picture}/>
-        <div className='username'>{this.props.user.username} </div>
+        <div className='userName'>{this.props.user.userName} </div>
     	</div>
   		);
   	}
