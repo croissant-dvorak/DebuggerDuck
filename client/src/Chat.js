@@ -27,6 +27,9 @@ class Chat extends Component {
         console.log('MESSAGES FROM CHAT.JS', response.data.data[0].messages);
         this.setState({messages: response.data.data[0].messages});
       })
+      .catch(error => {
+        console.log('ERROR MESSAGES GET FROM CHAT.JS', error);
+      })
   }
 
 
@@ -73,7 +76,7 @@ class Chat extends Component {
     <div className="chatBox">
       <div className="messagesBox">
         {
-        this.state.messages.map( (message) => <Message messageText={message.text} userName={message.user} /> )
+        this.state.messages.map( (message) => <Message text={message.text} userName={message.userName} /> )
         }
     </div>
       <form className="chatInput">

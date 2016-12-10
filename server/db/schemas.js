@@ -8,7 +8,7 @@ let db = {};
 
 const UserSchema = new Schema ({
 	//mongoose will automatically create a unique id, so no need to manually create one
-	username: String,
+	userName: String,
 	fb_id: String,
 	picture: String,
 	groups: [{ type: String, ref: 'Group' }]
@@ -39,6 +39,7 @@ const GroupSchema = new Schema ({
 	name: String,
 	users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 	messages: [{
+		userName: String,
 		user_id: String,
 		picture: String,
 		text: String,
