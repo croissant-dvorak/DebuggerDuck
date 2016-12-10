@@ -34,9 +34,7 @@ class Chat extends Component {
 
   addMessageFn(mess) {
     var temp = this.state.messages.slice()
-    console.log('TEMP', temp)
     temp.push(mess)
-    console.log('TEMP', temp)
     this.setState({'messages': temp})
   }
 
@@ -59,8 +57,6 @@ class Chat extends Component {
         text: $('.chatInput input').val()
       }})
       .then(response => {
-        console.log('Message posted!', response);
-        //this.render();
       })
       .catch(error => {
         console.log('Error while posting message: ', error);
