@@ -38,7 +38,7 @@ function watch() {
 
 gulp.task('build', function() { return compile(); });
 gulp.task('watch', function () {
-    gulp.watch(['client/src/*.*'], ['build']);
+    gulp.watch(['client/src/*.js'], ['build']);
 });
 
 gulp.task('default', ['watch']);

@@ -77,9 +77,9 @@ module.exports = {
   group: {
     // Group controller functions for GET
     get: (req, res) => {
-      db.Group.find({_id: req.params.groupId}).exec()
-        .then((group) => {
-          let response = buildResObj(group);
+      db.Group.find().exec()
+        .then((groups) => {
+          let response = buildResObj(groups);
           res.status(200).send(response);
         })
         .catch((err) => {
@@ -87,18 +87,6 @@ module.exports = {
           res.sendStatus(400);
         })
     },
-
-    delete: (req, res) => {
-      db.Group.findByIdAndRemove({_id: req.query.id})
-      .then((user) => {
-        res.status(200).send('the group is dead.')
-      })
-      .catch((err) => {
-            console.error(err);
-            res.sendStatus(400);
-          })
-    },
-
     // Group controller functions for GET
     post: (req, res) => {
       // Look in the database to see if there is a Group with the given name already
@@ -138,23 +126,8 @@ module.exports = {
             res.sendStatus(400);
           })
       },
-    },
-
-    postMessage: (req, res) => {
-      db.Group.findById({_id: req.params.groupId})
-      .then((group) => {
-            group.messages.push(req.body.data)
-            group.save()
-            .then((group) => {
-            console.log('Message saved to group in DB.', data);
-            res.status(201);
-          })
-      .catch((err) => {
-        res.sendStatus(400)
-      })
-    })
-  }
-},
+    }
+  },
 
   volunteer: {
     // Volunteer controller functions for GET

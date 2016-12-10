@@ -1,6 +1,6 @@
 module.exports = {
    mlObj: {
-       userName: 'example',
+       username: 'example',
        pw: 'example'
    },
    fbObj: {

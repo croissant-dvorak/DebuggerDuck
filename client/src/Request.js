@@ -11,8 +11,8 @@ class Request extends Component {
 
   render() {
     return ( 
-      <div className='individual-request yellow-background'>
-      {this.props.request.text} - {this.props.request.userName}
+      <div className='individual-request'>
+      {this.props.request.text} - {this.props.request.user_id}
      <img className='small-profile-pic' src={this.props.request.picture}/>
      </div>
     );

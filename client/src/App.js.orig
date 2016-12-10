@@ -27,10 +27,10 @@ import JoinGroupModal from './JoinGroupModal';
 class Runner extends Component {
   constructor(props) {
     super(props);
-//holds the logged in state, userName, picture
+//holds the logged in state, username, picture
     this.state = {
       loggedIn: false,
-      userName: '',
+      username: '',
       picture: '',
       currentGroup: '',
       userId: '',
@@ -130,7 +130,7 @@ class Runner extends Component {
     axios.get('/api/user')
       .then(response => {
         console.log('User info sucessfully retrieved', response);
-        this.setState({userName: response.data.userName});
+        this.setState({username: response.data.username});
         this.getGroupsForUserId(response.data._id);
         this.setState({picture: response.data.picture});
         this.setState({userId: response.data._id})
@@ -168,10 +168,10 @@ class Runner extends Component {
   }
 
   //postVolunteer POSTS a new volunteer to the server.
-    //Accepts a location, a time, and group.  Pulls userName from state.
+    //Accepts a location, a time, and group.  Pulls username from state.
   postVolunteer(location, time, group) {
     axios.post('/api/volunteer', {data:{
-      userName: this.state.userName,
+      username: this.state.username,
       location: location,
       time:  time,
       picture: this.state.picture,
@@ -191,12 +191,12 @@ class Runner extends Component {
   // postRequest sends a food request to the server.
   // volunteerId is the mongo db record for the volunteer (in the mongo Order table.)
     //text is what the user requested.
-    //userName for hte request is pulled from state.
+    //username for hte request is pulled from state.
     
   postRequest(volunteerId, text) {
       axios.post('/api/request', {data:{
       //don't remove.  
-      userName: this.state.userName,
+      username: this.state.username,
       volunteerId: volunteerId,
       picture: this.state.picture, 
       text: text,
@@ -235,9 +235,9 @@ class Runner extends Component {
           loggedIn={true}
           postLogout={this.postLogout.bind(this)}
           postLogin={this.postLogin.bind(this)}
-          userName={this.state.userName} 
+          username={this.state.username} 
           picture={this.state.picture}/>
-          <div className='greeting'> Hi, {this.state.userName}.</div>
+          <div className='greeting'> Hi, {this.state.username}.</div>
           <div className='group-select'>Please select a group.</div>
             {this.state.groups.map(group =>
               //This maps out all the groups into a list. 
@@ -269,12 +269,12 @@ class Runner extends Component {
               loggedIn={true}
               postLogout={this.postLogout.bind(this)}
               postLogin={this.postLogin.bind(this)}
-              userName={this.state.userName} 
+              username={this.state.username} 
               picture={this.state.picture} />
             <VolunteerRequestsContainer 
             //This also needs to be funneled info
               getIdFromGroupName={this.getIdFromGroupName.bind(this)}
-              userName={this.state.userName} 
+              username={this.state.username} 
               picture={this.state.picture}
               currentGroup={this.state.currentGroup}
               currentData={this.state.currentData}

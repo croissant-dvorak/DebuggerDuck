@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 
 import {
   Modal,
@@ -18,8 +17,6 @@ class VolunteerModal extends React.Component {
       time: '',
       location: '',
     };
-
-    this.onSubmit = this.onSubmit.bind(this);
   }
     onTimeChange(event) {
     //every time the user types a new letter, the state is changed to the current input
@@ -31,20 +28,19 @@ class VolunteerModal extends React.Component {
   }
 
   //postVolunteer POSTS a new volunteer to the server.
-    //Accepts a location, a time, and group.  Pulls userName from state.
+    //Accepts a location, a time, and group.  Pulls username from state.
   postVolunteer(location, time, group) {
     axios.post('/api/volunteer', {data:{
-        orderer_userName: this.props.user.userName,
-        location: location,
-        time:  time,
-        picture: this.props.user.picture,
-        groupId: this.props.group._id,
-        requests: [],
+      username: this.state.user.username,
+      location: location,
+      time:  time,
+      picture: this.state.user.picture,
+      groupId: this.getIdFromGroupName(group)
       }
     })
     .then(response => {
       console.log('Volunteer posted! ',response);
-      // this.getCurrentData();
+      this.getCurrentData();
       this.render();
     })
     .catch(error => {
@@ -54,7 +50,8 @@ class VolunteerModal extends React.Component {
 
   onSubmit (){
     this.postVolunteer(this.state.location, this.state.time, this.props.currentGroup);
-    this.props.onSubmit();
+    console.log("On submit at the modal level")
+    this.props.getOrdersForGroupId();
     this.setState({
       isOpen: false,
       time: '',
@@ -116,7 +113,7 @@ class VolunteerModal extends React.Component {
               </div>
             </div>
             <ModalFooter>
-              <button className="red-button" onClick={this.onSubmit}>
+              <button className="red-button" onClick={this.onSubmit.bind(this)}>
                 Submit
               </button>
             </ModalFooter>
