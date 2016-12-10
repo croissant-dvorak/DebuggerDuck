@@ -1,4 +1,5 @@
 const mongoose = require ('mongoose');
+const shortid = require ('shortid');
 const Schema = mongoose.Schema;
 mongoose.Promise = global.Promise;
 
@@ -10,7 +11,7 @@ const UserSchema = new Schema ({
 	username: String,
 	fb_id: String,
 	picture: String,
-	groups: [{ type: Schema.Types.ObjectId, ref: 'Group' }]
+	groups: [{ type: String, ref: 'Group' }]
 });
 
 // let getNameFromFb = function(input){
@@ -31,7 +32,10 @@ const UserSchema = new Schema ({
 // });
 
 const GroupSchema = new Schema ({
-	// Will automatically generate group id
+	_id: {
+    type: String,
+    'default': shortid.generate
+	},
 	name: String,
 	users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
 	messages: [{
@@ -47,7 +51,7 @@ const OrderSchema = new Schema ({
 	order_user: String,
 	location: String,
 	time: String,
-	group_id: Schema.Types.ObjectId,
+	group_id: String,
 	active: Boolean,
 	picture: String,
 	requests: [{user_id: String, picture: String, text: String}],

@@ -35,7 +35,6 @@ class PickUpOffers extends Component {
   }
 
   render() {
-    console.log('volunteer count', this.state.pickups.length)
     //Here we check if no one has volunteered yet. If so, we render a div that tells the user that no one has volunteered yet.
     //If they do volunteer, this.state.volunteer will change and the page will render immediately and will display their info.
     if (this.state.pickups.length === 0){
