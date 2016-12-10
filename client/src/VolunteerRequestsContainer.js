@@ -12,6 +12,7 @@ class VolunteerRequestContainer extends Component {
   render() {
     return (
       <div className="display">
+        <div>Share this key with the people you like enough to get food for: {this.props.group._id}</div>
         <Chat user={this.props.user} group={this.props.group} />
         <PickUpOffers user={this.props.user} group={this.props.group} selectDifferentGroup={this.props.selectDifferentGroup}  />
       </div>
