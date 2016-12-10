@@ -39,15 +39,15 @@ class Chat extends Component {
 
   render() {
     return (
-    <div className="col-md-6">
-      <div className="messages">
+    <div className="col-md-6 chatBox">
+      <div className="messagesBox">
         {
         this.state.messages.map( (message) => <Message messageText={message.text} userName={message.user} /> )
       }
     </div>
-      <form className="chatInput" method="post" action={"/api/group" + this.props.group._id + '/message'}>
+      <form className="chatInput" method="post" action={"/api/group/" + this.props.group._id + '/message'}>
         <input type="text" />
-        <input onClick={this.submitChat} />
+        <button onClick={this.submitChat} >send a chat!</button>
       </form>
     </div>
     )
