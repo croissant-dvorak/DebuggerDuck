@@ -27,9 +27,6 @@ class Chat extends Component {
         console.log('MESSAGES FROM CHAT.JS', response.data.data[0].messages);
         this.setState({messages: response.data.data[0].messages});
       })
-      .catch(error => {
-        console.log('ERROR MESSAGES GET FROM CHAT.JS', error);
-      })
   }
 
 
