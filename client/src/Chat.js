@@ -78,7 +78,7 @@ class Chat extends Component {
     </div>
       <form className="chatInput" onSubmit={function(){ return this.submitMessage(event) }.bind(this)}>
         <input type="text" />
-        <input type="button" value="send" onClick={function(){ return this.submitMessage(event) }.bind(this)} />
+        <input type="button" value="Send Message" onClick={function(){ return this.submitMessage(event) }.bind(this)} />
       </form>
     </div>
     )
