@@ -45,7 +45,7 @@ class Chat extends Component {
       user_id: this.props.user._id,
       userName: this.props.user.userName,
       picture: this.props.user.picture,
-      text: $('.chatInput input').val()
+      text: $('.chatBox input').val()
     })
     // console.log('PROPS:', this.props)
     event.preventDefault();
