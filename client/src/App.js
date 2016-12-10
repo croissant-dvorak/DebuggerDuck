@@ -180,7 +180,7 @@ class App extends Component {
           postLogin={this.postLogin.bind(this)}
           user={this.state.user} />
           <div className='greeting'> Hi, {this.state.user.userName}.</div>
-          <div className='group-select'>Please select a group.</div>
+          <div className='group-select yellow-font'>Please select a group.</div>
             {this.state.user.groups.map(group =>
               //This maps out all the groups into a list.
               <Groups
