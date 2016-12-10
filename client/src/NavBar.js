@@ -42,7 +42,10 @@ class NavBar extends Component {
           loggedIn={this.state.loggedIn}/>
     		{/**<div className='karma'>Karma: {this.state.karma}</div>*/}
         <img className='nav-pic' src={this.props.user.picture}/>
-        <div className='userName'>{this.props.user.userName} </div>
+        <div className='userName'>
+          <div style={{'backgroundColor': '#CAEBF2'}}>{this.props.user.userName}</div>
+          <div style={{'backgroundColor': '#CAEBF2'}}>{this.props.user.userName}</div>
+        </div>
     	</div>
   		);
   	}
