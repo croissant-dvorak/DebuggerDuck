@@ -31,10 +31,10 @@ class VolunteerModal extends React.Component {
   }
 
   //postVolunteer POSTS a new volunteer to the server.
-    //Accepts a location, a time, and group.  Pulls username from state.
+    //Accepts a location, a time, and group.  Pulls userName from state.
   postVolunteer(location, time, group) {
     axios.post('/api/volunteer', {data:{
-        username: this.props.user.username,
+        userName: this.props.user.userName,
         location: location,
         time:  time,
         picture: this.props.user.picture,

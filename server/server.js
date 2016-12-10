@@ -40,7 +40,7 @@ module.exports.NODEPORT = process.env.PORT || 4040;
         if(!data) {
           console.log('profile', profile)
           new db.User({
-            username: profile.displayName,
+            userName: profile.displayName,
             fb_id: profile.id,
             picture: 'https://graph.facebook.com/' + profile.id + '/picture?type=normal'
           }).save()
