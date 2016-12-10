@@ -37,22 +37,15 @@ class PickUpOffers extends Component {
   }
 
   render() {
-    //Because this.state.volunteers holds ALL the info for all groups and we only want to render the info relevent to the group,
-    //We create a variable called filteredVolunteers. Because the database needs the id of the group but we only hold
-    // the groups name, we had to pass down a function called getIdFromGroupName that returns the id.
-    //Once we have the id, we can use that information to filter through this.state.volunteers to only display the
-    //info from that particular group.
-    let filteredVolunteers = this.state.volunteers.filter(volunteer => volunteer.group_id === this.props.getIdFromGroupName(this.props.currentGroup));
     //Here we check if no one has volunteered yet. If so, we render a div that tells the user that no one has volunteered yet.
     //If they do volunteer, this.state.volunteer will change and the page will render immediately and will display their info.
-    if (filteredVolunteers.length===0){
+    if (this.state.volunteers.length===0){
       return(
         <div className="col-md-6">
           <div>
             <VolunteerModal 
-            user={this.user}
-            getCurrentData={this.props.getCurrentData} 
-            currentGroup={this.props.currentGroup} 
+            user={this.props.user}
+            group={this.props.group} 
             onSubmit={this.onSubmit.bind(this)} />
           </div>
           <div className='no-requests center'>No one has volunteered to grab food yet. Why don't you go first?</div>
@@ -66,9 +59,8 @@ class PickUpOffers extends Component {
      <div className='request-container'>
         <div>
           <VolunteerModal
-          getDataForRendering={this.getDataForRendering.bind(this)}
-          getCurrentData={this.props.getCurrentData}
-          currentGroup={this.props.currentGroup}
+          user={this.props.user}
+          group={this.props.group}
           onSubmit={this.onSubmit.bind(this)} />
         </div>
         {this.state.volunteers.map(volunteer =>

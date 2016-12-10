@@ -144,7 +144,7 @@ module.exports = {
     },
     // Volunteer controller functions for POST
     post: (req, res) => {
-
+      console.log('received', req.body.data);
       new db.Order({
         order_user: req.body.data.username,
         location: req.body.data.location,
@@ -157,7 +157,7 @@ module.exports = {
         res.status(201).send(data);
       })
       .catch((err) => {
-        res.sendStatus(400)
+        res.status(400).send(err);
       })
     }
   },

@@ -18,11 +18,11 @@ class Chat extends Component {
     };
 
     this.getChatForGroupId = this.getChatForGroupId.bind(this);
-    this.getChatForGroupId(this.props.group._id);
+    // this.getChatForGroupId(this.props.group._id);
   }
 
   getChatForGroupId(groupId) {
-    axios.get('/api/group/'+groupId+'/cats')
+    axios.get('/api/group/'+groupId+'/chat')
       .then(response => {
         console.log('Getting Current Data?', response.data.data);
         this.setState({volunteers: response.data.data});

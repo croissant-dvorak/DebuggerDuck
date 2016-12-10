@@ -18,6 +18,7 @@ class VolunteerModal extends React.Component {
       time: '',
       location: '',
     };
+
   }
     onTimeChange(event) {
     //every time the user types a new letter, the state is changed to the current input
@@ -32,16 +33,17 @@ class VolunteerModal extends React.Component {
     //Accepts a location, a time, and group.  Pulls username from state.
   postVolunteer(location, time, group) {
     axios.post('/api/volunteer', {data:{
-      username: this.state.user.username,
-      location: location,
-      time:  time,
-      picture: this.state.user.picture,
-      groupId: this.getIdFromGroupName(group)
+        username: this.props.user.username,
+        location: location,
+        time:  time,
+        picture: this.props.user.picture,
+        groupId: this.props.group._id,
+        requests: [],
       }
     })
     .then(response => {
       console.log('Volunteer posted! ',response);
-      this.getCurrentData();
+      // this.getCurrentData();
       this.render();
     })
     .catch(error => {
@@ -51,8 +53,7 @@ class VolunteerModal extends React.Component {
 
   onSubmit (){
     this.postVolunteer(this.state.location, this.state.time, this.props.currentGroup);
-    console.log("On submit at the modal level")
-    this.props.getOrdersForGroupId();
+    this.props.onSubmit();
     this.setState({
       isOpen: false,
       time: '',
