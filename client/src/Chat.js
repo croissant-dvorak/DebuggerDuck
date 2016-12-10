@@ -2,6 +2,10 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import axios from 'axios';
 
+const io = require('socket.io-client');
+const socket = io()
+
+
 import Message from './message.js'
 
 class Chat extends Component {
@@ -9,23 +13,13 @@ class Chat extends Component {
     super(props);
     console.log('prrrrrrrrrro', this.props)
     socket.emit('createRoom', this.props.group._id)
-    socket.on('addMessage', function(mess) {
-      console.log('GOT ONE', mess)
-      this.addMessageFn(mess)
-    })
     this.state = {
       messages: []
     };
-
+    socket.on('addMessage', this.addMessageFn.bind(this) )
     this.getChatForGroupId(this.props.group._id);
     // this.getChatForGroupId(this.props.group._id);
   }
-
-
-  addMessageFn(mess) {
-    this.setState('messages', this.state.messages.concat(mess))
-  }
-
 
   getChatForGroupId(groupId) {
     axios.get('/api/group/' + groupId)
@@ -39,6 +33,15 @@ class Chat extends Component {
   }
 
 
+  addMessageFn(mess) {
+    var temp = this.state.messages.slice()
+    console.log('TEMP', temp)
+    temp.push(mess)
+    console.log('TEMP', temp)
+    this.setState({'messages': temp})
+  }
+
+
   submitMessage(event) {
     socket.emit('addMessage', {
       user_id: this.props.user._id,
@@ -46,9 +49,8 @@ class Chat extends Component {
       picture: this.props.user.picture,
       text: $('.chatInput input').val()
     })
-    console.log('PROPS:', this.props)
+    // console.log('PROPS:', this.props)
     event.preventDefault();
-
     axios.post('api/group/' + this.props.group._id + '/message',
       {data: {
         user_id: this.props.user._id,
@@ -63,24 +65,6 @@ class Chat extends Component {
       .catch(error => {
         console.log('Error while posting message: ', error);
       });
-
-    //     axios.post('/api/volunteer', {data:{
-    //     userName: this.props.user.userName,
-    //     location: location,
-    //     time:  time,
-    //     picture: this.props.user.picture,
-    //     groupId: this.props.group._id,
-    //     requests: [],
-    //   }
-    // })
-    // .then(response => {
-    //   console.log('Volunteer posted! ',response);
-    //   // this.getCurrentData();
-    //   this.render();
-    // })
-    // .catch(error => {
-    //   console.log('Error while posting Volunteer: ',error);
-    // });
   }
 
   render() {
