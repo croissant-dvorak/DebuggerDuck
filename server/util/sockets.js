@@ -6,18 +6,20 @@ module.exports.listen = function(http){
   var io = socketio(http)
   //establish socket connection
   io.on('connection', function(client){
-    console.log("socket running")
-
+    // console.log("socket running")
     //here's how we create a new room
     client.on('createRoom', function(roomID) {
-      console.log('ROOM--------', roomID)
+      // console.log('ROOM--------', roomID)
       client.join(roomID);
     });
 
-
-    client.on('sendMessage', function(message) {
-      postMessage
+    client.on('addMessage', function(message) {
+      console.log(message)
     })
+
+    // client.on('sendMessage', function(message) {
+    //   postMessage
+    // })
     // when the client submits a new line save it to the
     // database and return the story
     client.on('sendingLine', function(lineData) {

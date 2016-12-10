@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 
 const Message = (props) => (
   <div className='message'>
-    {props.userName + ': ' + props.messageText}
+    {props.userName + ': ' + props.text}
   </div> )
 
 export default Message;

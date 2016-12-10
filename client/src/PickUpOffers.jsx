@@ -12,7 +12,7 @@ class PickUpOffers extends Component {
     super(props);
     console.log('prrrrrrrrrro', this.props)
     var socket = io();
-    // socket.emit('createRoom', this.props.group._id)
+    socket.emit('createRoom', this.props.group._id)
     socket.on('addMessage', function(mess) {
       console.log(mess)
     })
@@ -28,12 +28,10 @@ class PickUpOffers extends Component {
   }
 
   getOrdersForGroupId(groupId) {
-    console.log("groupId&&&&&&&&******** ", groupId);
     axios.get('/api/group/'+groupId+'/volunteer')
       .then(response => {
         console.log('************Getting Current Data?', response.data.data);
         this.setState({pickups: response.data.data});
-        // console.log("pickups ", this.state.pickups);
       })
       .catch(error => {
         console.log('Error while getting current data: ', error);

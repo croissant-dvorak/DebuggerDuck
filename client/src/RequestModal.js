@@ -24,7 +24,6 @@ class RequestModal extends React.Component {
   
   onSubmit (){
     //Don't change this invocation.
-    console.log('modal text?', this.state.text);
     this.props.onSubmit(this.state.text);
     this.setState({
       isOpen: false,

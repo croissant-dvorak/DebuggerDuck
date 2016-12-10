@@ -131,8 +131,10 @@ class App extends Component {
     axios.get('/api/user/loggedin')
       .then(response => {
         console.log('Login successful? ', response);
-        this.getUserData();
-        this.setState({loggedIn: true});
+        if (response.data) {
+          this.getUserData();
+          this.setState({loggedIn: true});
+        }
       })
       .catch(error => {
         console.log('Error occurred during login ', error);

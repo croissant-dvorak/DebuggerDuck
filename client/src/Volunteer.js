@@ -14,8 +14,6 @@ class Volunteer extends Component {
     console.log('PROP', this.props.pickup)
     this.state = {
       //This info has been funneled down from volunteerRequestContainer, which was funneled down from app.js
-      userName: this.props.pickup.order_user,
-      picture: this.props.pickup.picture,
       //we set text as '' because nothing has been entered yet.
       text:'',
       //requests is an array of stuff obtained from the database.
@@ -38,23 +36,22 @@ class Volunteer extends Component {
     //console.log('Text?', text, "volunteer id", this.props.volunteer._id);
     this.postRequest(this.props.pickup._id, text);
     this.setState({text:''});
-    this.props.getDataForRendering();
     // this.setState({requests:this.props.volunteer.requests})
   }
 
   postRequest(volunteerId, text) {
-      axios.post('/api/request', {data:{
-      //don't remove.
-      userName: this.state.user.userName,
+    console.log('volunteer id', volunteerId, 'text', text)
+    axios.post('/api/request', {data:{
       volunteerId: volunteerId,
-      picture: this.state.user.picture,
+      user_id: this.props.user._id,
+      picture: this.props.user.picture,
+      userName: this.props.user.userName,
       text: text,
-
       }
     })
       .then(response => {
         console.log('Request submitted: ', response.data);
-        console.log('USER', this.state)
+        this.setState({requests: response.data.requests});
       })
       .catch(error => {
         console.log('Error while submitting food request:', error);
@@ -66,7 +63,7 @@ class Volunteer extends Component {
   	return (
         <div className='volunteer-div'>
           <img className='small-profile-pic' src={this.props.pickup.picture}/>
-          {this.props.pickup.order_user} is going to {this.props.pickup.location} at {this.props.pickup.time}.
+          {this.props.pickup.orderer_userName} is going to {this.props.pickup.location} at {this.props.pickup.time}.
 
         {this.props.pickup.requests.map(request =>
           //this goes through the array of requests and maps them using the child component, Request.js

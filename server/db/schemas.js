@@ -11,6 +11,7 @@ const UserSchema = new Schema ({
 	userName: String,
 	fb_id: String,
 	picture: String,
+	phoneNumber: String,
 	groups: [{ type: String, ref: 'Group' }]
 });
 
@@ -49,13 +50,13 @@ const GroupSchema = new Schema ({
 
 const OrderSchema = new Schema ({
 	// Will automatically generate order id
-	order_user: String,
+	orderer_userName: String,
 	location: String,
 	time: String,
 	group_id: String,
 	active: Boolean,
 	picture: String,
-	requests: [{user_id: String, picture: String, text: String}],
+	requests: [{userName: String, user_id: String, picture: String, text: String}],
 	createdAt: { type : Date, default: Date.now }
 })
 

@@ -8,10 +8,10 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     console.log('prrrrrrrrrro', this.props)
-    var socket = io();
     socket.emit('createRoom', this.props.group._id)
     socket.on('addMessage', function(mess) {
-      console.log(mess)
+      console.log('GOT ONE', mess)
+      this.addMessageFn(mess)
     })
     this.state = {
       messages: []
@@ -20,6 +20,12 @@ class Chat extends Component {
     this.getChatForGroupId(this.props.group._id);
     // this.getChatForGroupId(this.props.group._id);
   }
+
+
+  addMessageFn(mess) {
+    this.setState('messages', this.state.messages.concat(mess))
+  }
+
 
   getChatForGroupId(groupId) {
     axios.get('/api/group/' + groupId)
@@ -34,6 +40,12 @@ class Chat extends Component {
 
 
   submitMessage(event) {
+    socket.emit('addMessage', {
+      user_id: this.props.user._id,
+      userName: this.props.user.userName,
+      picture: this.props.user.picture,
+      text: $('.chatInput input').val()
+    })
     console.log('PROPS:', this.props)
     event.preventDefault();
 
