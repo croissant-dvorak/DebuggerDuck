@@ -13,8 +13,10 @@ module.exports.listen = function(http){
       client.join(roomID);
     });
 
+
     client.on('addMessage', function(message) {
-      console.log(message)
+      console.log('emitting socket!', message)
+      client.emit('addMessage', message)
     })
 
     // client.on('sendMessage', function(message) {
