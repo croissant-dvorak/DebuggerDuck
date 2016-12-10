@@ -43,7 +43,7 @@ class Chat extends Component {
       }})
       .then(response => {
         console.log('Message posted!', response);
-        this.render();
+        //this.render();
       })
       .catch(error => {
         console.log('Error while posting message: ', error);
