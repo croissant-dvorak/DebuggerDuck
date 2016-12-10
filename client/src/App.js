@@ -152,30 +152,6 @@ class App extends Component {
       })
   }
 
-  // postRequest sends a food request to the server.
-  // volunteerId is the mongo db record for the volunteer (in the mongo Order table.)
-    //text is what the user requested.
-    //username for hte request is pulled from state.
-
-  postRequest(volunteerId, text) {
-      axios.post('/api/request', {data:{
-      //don't remove.
-      username: this.state.user.username,
-      volunteerId: volunteerId,
-      picture: this.state.user.picture,
-      text: text,
-
-      }
-    })
-      .then(response => {
-        console.log('Request submitted: ', response.data);
-        console.log('USER', this.state)
-      })
-      .catch(error => {
-        console.log('Error while submitting food request:', error);
-      })
-  }
-
   //There are three possible options when we reach the home page.
 //For each option a navbar is rendered regardless of state.
 //1. LoggedIn is false -> render the Landing page component.
@@ -230,10 +206,8 @@ class App extends Component {
               postLogin={this.postLogin.bind(this)}
               user={this.state.user}  />
             <VolunteerRequestsContainer
-            //This also needs to be funneled info
               user={this.state.user}
               group={this.state.currentGroup}
-              postRequest={this.postRequest.bind(this)}
               //We pass down the selectDifferentGroup function to this component since the button is rendered there
               selectDifferentGroup={this.selectDifferentGroup.bind(this)} />
           </div>
