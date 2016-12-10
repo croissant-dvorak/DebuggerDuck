@@ -8,8 +8,9 @@ class Chat extends Component {
   constructor(props) {
     super(props);
     console.log('prrrrrrrrrro', this.props)
-    io().emit('createRoom', this.props.group._id)
-    io().on('addMessage', function(mess) {
+    socket.emit('createRoom', this.props.group._id)
+    socket.on('addMessage', function(mess) {
+      console.log('GOT ONE', mess)
       this.addMessageFn(mess)
     })
     this.state = {
@@ -39,7 +40,7 @@ class Chat extends Component {
 
 
   submitMessage(event) {
-    io().emit('addMessage', {
+    socket.emit('addMessage', {
       user_id: this.props.user._id,
       userName: this.props.user.userName,
       picture: this.props.user.picture,
