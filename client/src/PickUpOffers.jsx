@@ -61,6 +61,7 @@ class PickUpOffers extends Component {
            :
             (<Volunteer
             pickup={this.state.order}
+            user={this.props.user}
             />);
            
     // console.log("pickup ", this.state.pickups);

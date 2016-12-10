@@ -65,7 +65,7 @@ class Volunteer extends Component {
           <img className='small-profile-pic' src={this.props.pickup.picture}/>
           {this.props.pickup.orderer_userName} is going to {this.props.pickup.location} at {this.props.pickup.time}.
 
-        {this.props.pickup.requests.map(request =>
+        {this.state.requests.map(request =>
           //this goes through the array of requests and maps them using the child component, Request.js
           <Request
           //I threw math.random as the key because react kept getting angry at me for making duplicate keys??
