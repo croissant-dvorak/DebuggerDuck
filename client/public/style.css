@@ -63,10 +63,6 @@
   border: #808080 solid 1px;
 }
 
-.request-container {
-  padding: 20px;
-}
-
 .karma {
   position: relative;
   height: 40px;
@@ -233,20 +229,46 @@
   width: 50%;
 }
 
+.display {
+  /*display: table;*/
+  width: 100%;
+}
+
+.request-container {
+  padding: 20px;
+  float: right;
+  white-space: nowrap;
+}
+
 .chatBox {
-	background-color: grey;
-	height: 505px;
-	max-width: 60%;
-	margin-right: auto;
-	margin-left: auto;
+  background-color: grey;
+  height: 505px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0px !important;
 }
 
 .chatInput {
-	display: block;
+  display: flex;
+  background: grey;
+}
+
+.chatInput button {
+  display: block;
+  /* width: 150px; */
+  width: 20%;
+}
+
+.chatInput input {
+  max-width: 100%;
+  width: 80%;
+  /* display: block; */
 }
 
 .messagesBox {
-	height: 94%;
-	border: 1px solid black;
-	background: transparent;
+  height: 94%;
+  border: 1px solid black;
+  background: transparent;
+  padding: 0px !important;
 }

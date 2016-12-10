@@ -11,8 +11,7 @@ module.exports = {
 
   user: {
     get: (req, res) => {
-      db.User.findOne({fb_id: req.user.id})
-        .populate('groups')
+      db.User.findOne({fb_id: req.user.id}).exec()
         .then((user) => {
           res.status(200).send(user);
         })
@@ -126,19 +125,6 @@ module.exports = {
         console.log(err);
       })
     },
-    volunteer: {
-      get: (req, res) => {
-        db.Order.find({ group_id: req.params.groupId })
-          .then((volunteers) => {
-            let response = buildResObj(volunteers);
-            res.status(200).send(response);
-          })
-          .catch((err) => {
-            console.error(err);
-            res.sendStatus(400);
-          })
-      },
-    },
 
     postMessage: (req, res) => {
       db.Group.findById({_id: req.params.groupId})
@@ -152,9 +138,8 @@ module.exports = {
       .catch((err) => {
         res.sendStatus(400)
       })
-    })
-  }
-},
+    }
+  },
 
   volunteer: {
     // Volunteer controller functions for GET
@@ -171,7 +156,7 @@ module.exports = {
     },
     // Volunteer controller functions for POST
     post: (req, res) => {
-      console.log('received', req.body.data);
+
       new db.Order({
         order_user: req.body.data.username,
         location: req.body.data.location,
@@ -184,7 +169,7 @@ module.exports = {
         res.status(201).send(data);
       })
       .catch((err) => {
-        res.status(400).send(err);
+        res.sendStatus(400)
       })
     }
   },
@@ -195,7 +180,7 @@ module.exports = {
     post: (req, res) => {
 
       db.Order.findOneAndUpdate(
-         {_id: req.body.data.volunteerId},
+         {_id:req.body.data.volunteerId},
          {$push: { requests:{user_id: req.body.data.username, picture: req.body.data.picture, text:req.body.data.text} } }
         )
       .then((data) => {

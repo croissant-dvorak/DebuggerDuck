@@ -40,11 +40,11 @@ class PickUpOffers extends Component {
     //If they do volunteer, this.state.volunteer will change and the page will render immediately and will display their info.
     if (this.state.pickups.length === 0){
       return(
-        <div className="col-md-6">
+        <div className='request-container'>
           <div>
-            <VolunteerModal 
+            <VolunteerModal
             user={this.props.user}
-            group={this.props.group} 
+            group={this.props.group}
             onSubmit={this.getOrdersForGroupId} />
           </div>
           <div className='no-requests center'>No one has volunteered to grab food yet. Why don't you go first?</div>
@@ -55,7 +55,7 @@ class PickUpOffers extends Component {
       //If there are already pickups in the system for this particular group, render them.
       return (
         //VolunteerModal pops up when you click the Volunteer Services button
-     <div className='request-container col-md-6'>
+     <div className='request-container'>
         <div>
           <VolunteerModal
           user={this.props.user}

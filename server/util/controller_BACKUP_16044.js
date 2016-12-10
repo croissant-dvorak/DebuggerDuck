@@ -126,19 +126,7 @@ module.exports = {
         console.log(err);
       })
     },
-    volunteer: {
-      get: (req, res) => {
-        db.Order.find({ group_id: req.params.groupId })
-          .then((volunteers) => {
-            let response = buildResObj(volunteers);
-            res.status(200).send(response);
-          })
-          .catch((err) => {
-            console.error(err);
-            res.sendStatus(400);
-          })
-      },
-    },
+<<<<<<< HEAD
 
     postMessage: (req, res) => {
       db.Group.findById({_id: req.params.groupId})
@@ -152,9 +140,22 @@ module.exports = {
       .catch((err) => {
         res.sendStatus(400)
       })
-    })
-  }
-},
+=======
+    volunteer: {
+      get: (req, res) => {
+        db.Order.find({ group_id: req.params.groupId })
+          .then((volunteers) => {
+            let response = buildResObj(volunteers);
+            res.status(200).send(response);
+          })
+          .catch((err) => {
+            console.error(err);
+            res.sendStatus(400);
+          })
+      },
+>>>>>>> React-Refactor
+    }
+  },
 
   volunteer: {
     // Volunteer controller functions for GET
@@ -171,7 +172,7 @@ module.exports = {
     },
     // Volunteer controller functions for POST
     post: (req, res) => {
-      console.log('received', req.body.data);
+
       new db.Order({
         order_user: req.body.data.username,
         location: req.body.data.location,
@@ -184,7 +185,7 @@ module.exports = {
         res.status(201).send(data);
       })
       .catch((err) => {
-        res.status(400).send(err);
+        res.sendStatus(400)
       })
     }
   },

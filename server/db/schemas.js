@@ -37,7 +37,13 @@ const GroupSchema = new Schema ({
     'default': shortid.generate
 	},
 	name: String,
-	users: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+	users: [{ type: Schema.Types.ObjectId, ref: 'User' }],
+	messages: [{
+		user_id: String,
+		picture: String,
+		text: String,
+		createdAt: { type : Date, default: Date.now }
+	}]
 })
 
 const OrderSchema = new Schema ({
@@ -51,6 +57,7 @@ const OrderSchema = new Schema ({
 	requests: [{user_id: String, picture: String, text: String}],
 	createdAt: { type : Date, default: Date.now }
 })
+
 
 db.User = mongoose.model('User', UserSchema);
 db.Group = mongoose.model('Group', GroupSchema);
