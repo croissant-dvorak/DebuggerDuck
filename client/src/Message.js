@@ -8,4 +8,4 @@ const Message = (props) => (
     {this.props.userName + ': ' + this.props.messageText}
   </div> )
 
-export default Volunteer;
+export default Message;
