@@ -19,6 +19,7 @@ class VolunteerModal extends React.Component {
       location: '',
     };
 
+    this.onSubmit = this.onSubmit.bind(this);
   }
     onTimeChange(event) {
     //every time the user types a new letter, the state is changed to the current input
@@ -115,7 +116,7 @@ class VolunteerModal extends React.Component {
               </div>
             </div>
             <ModalFooter>
-              <button className="red-button" onClick={this.onSubmit.bind(this)}>
+              <button className="red-button" onClick={this.onSubmit}>
                 Submit
               </button>
             </ModalFooter>
