@@ -11,7 +11,7 @@ class VolunteerRequestContainer extends Component {
   }
   render() {
     return (
-      <div className="row">
+      <div className="display">
         <Chat user={this.props.user} group={this.props.group} />
         <PickUpOffers user={this.props.user} group={this.props.group} />
       </div>

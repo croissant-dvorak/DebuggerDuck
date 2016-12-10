@@ -39,7 +39,7 @@ class Chat extends Component {
 
   render() {
     return (
-    <div className="col-md-6 chatBox">
+    <div className="chatBox">
       <div className="messagesBox">
         {
         this.state.messages.map( (message) => <Message messageText={message.text} userName={message.user} /> )
