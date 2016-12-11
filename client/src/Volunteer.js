@@ -6,6 +6,7 @@ import axios from 'axios';
 import Request from './Request.js';
 import RequestModal from './RequestModal.js';
 import BackButton from './BackButton.js';
+import SMSButton from './SMSButton.js';
 
 class Volunteer extends Component {
   constructor(props) {
@@ -20,7 +21,8 @@ class Volunteer extends Component {
       //requests is an array of stuff obtained from the database.
       //It can be added to by the user by typing into the inputs and submitting.
       requests:this.props.pickup.requests,
-      count:0
+      count:0,
+      volunteer: this.props.pickup.order_user
     };
 
     this.postRequest = this.postRequest.bind(this);
@@ -59,24 +61,16 @@ class Volunteer extends Component {
       })
   }
 
-  postText(text) {
-    var nums = this.props.pickup.requests.map
-    axios.post('/api/group' + this.props.group._id + '/text', {data:{
-      nums: volunteerId,
-      message: this.props.user._id,
-      }
-    })
-      .then(response => {
-        console.log('Request submitted: ', response.data);
-        this.setState({requests: response.data.requests});
-      })
-      .catch(error => {
-        console.log('Error while submitting food request:', error);
-      })
+  sendSMS (){
+    //CASEY WRITE THE SMS FUNCTION HERE!!!!!!!!!!!
   }
-
-
   render() {
+    var renderTextButton;
+  if(this.state.volunteer === this.props.user.userName) {
+    renderTextButton = <SMSButton sendSMS={this.props.renderSmsButton} />
+  }
+   
+
   	return (
       <div>
       <BackButton viewOrders={this.props.viewOrders}/>
@@ -93,6 +87,7 @@ class Volunteer extends Component {
           )}
            <RequestModal onSubmit={this.onSubmit.bind(this)}/>
         </div>
+        {renderTextButton}
         </div>
   );
  }

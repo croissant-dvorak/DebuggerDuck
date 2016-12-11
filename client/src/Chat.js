@@ -34,9 +34,7 @@ class Chat extends Component {
 
   addMessageFn(mess) {
     var temp = this.state.messages.slice()
-    console.log('TEMP', temp)
     temp.push(mess)
-    console.log('TEMP', temp)
     this.setState({'messages': temp})
   }
 
@@ -47,7 +45,7 @@ class Chat extends Component {
       user_id: this.props.user._id,
       userName: this.props.user.userName,
       picture: this.props.user.picture,
-      text: $('.chatInput input').val()
+      text: $('.chatBox input').val()
     })
     // console.log('PROPS:', this.props)
     event.preventDefault();
@@ -59,13 +57,12 @@ class Chat extends Component {
         text: $('.chatInput input').val()
       }})
       .then(response => {
-        console.log('Message posted!', response);
-        //this.render();
       })
       .catch(error => {
         console.log('Error while posting message: ', error);
       });
     $('.chatInput input').val('');
+    this.props.selectGroup(this.props.group._id);
   }
 
   componentDidMount() {
@@ -82,10 +79,8 @@ class Chat extends Component {
         this.state.messages.map( (message) => <Message text={message.text} userName={message.userName} /> )
         }
     </div>
-      <form className="chatInput" onSubmit={function(){ return this.submitMessage(event) }.bind(this)}>
         <input type="text" />
         <input type="button" value="Send Message" onClick={function(){ return this.submitMessage(event) }.bind(this)} />
-      </form>
     </div>
     )
   }

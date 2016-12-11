@@ -21,6 +21,7 @@ class PickUpOffers extends Component {
       ordersView: true,
       requests: [],
       order: {}
+      
     };
 
     this.getOrdersForGroupId = this.getOrdersForGroupId.bind(this, this.props.group._id);
