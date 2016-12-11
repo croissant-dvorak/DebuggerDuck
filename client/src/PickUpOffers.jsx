@@ -65,6 +65,7 @@ class PickUpOffers extends Component {
             )         
            :
             (<Volunteer
+            group={this.props.group}
             pickup={this.state.order}
             user={this.props.user}
             viewOrders={this.viewOrders.bind(this)}

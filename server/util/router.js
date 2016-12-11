@@ -25,6 +25,7 @@ router.get('/group/:groupId', controller.group.get);
 router.post('/group', controller.group.post);
 router.get('/group/:groupId/volunteer', controller.group.volunteer.get);
 router.post('/group/:groupId/message', controller.group.postMessage);
+router.post('/group/:groupId/text', controller.group.postText);
 
 router.delete('/delete-group', controller.group.delete);
 

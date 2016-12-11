@@ -1,4 +1,5 @@
 const db = require('../db/schemas.js');
+const sms = require('../db/sms.js')
 
 // Returns an object with a key of data
 const buildResObj = function (data) {
@@ -166,6 +167,18 @@ module.exports = {
       .catch((err) => {
         res.sendStatus(400)
       })
+    })
+  },
+
+  postText: (req, res) => {
+    sms.send(req.body.data.nums, req.body.data.message, function(err, data){
+      if (err) {
+        res.status(400).send(err)
+        console.log(err, err.stack); // an error occurred
+      } else {
+        res.status(201).send(data)
+        console.log(data);           // successful response
+      }
     })
   }
 },

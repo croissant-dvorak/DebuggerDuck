@@ -59,6 +59,22 @@ class Volunteer extends Component {
       })
   }
 
+  postText(text) {
+    var nums = this.props.pickup.requests.map
+    axios.post('/api/group' + this.props.group._id + '/text', {data:{
+      nums: volunteerId,
+      message: this.props.user._id,
+      }
+    })
+      .then(response => {
+        console.log('Request submitted: ', response.data);
+        this.setState({requests: response.data.requests});
+      })
+      .catch(error => {
+        console.log('Error while submitting food request:', error);
+      })
+  }
+
 
   render() {
   	return (
