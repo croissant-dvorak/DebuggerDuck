@@ -18,15 +18,16 @@
 * {
   font-family: 'Poppins', sans-serif;
   background-color: #EFEFEF;
-  color: #4F4D4D;
+  /*coloatr: #4F4D4D;*/
   font-size: 18px;
 }
 
 .nav-bar {
   height: 80px;
+  color: #3B5998;
   background-color: #CAEBF2;
   padding: 10px;
-  color: white;
+  /*color: white;*/
   width: 100%;
   border-bottom: #808080 solid 1px;
 }
@@ -252,17 +253,22 @@
 }
 
 .display {
-  /*display: table;*/
+  display: flex;
   width: 100%;
 }
 
 .request-container {
+  display: block;
   padding: 20px;
-  float: right;
+  margin: 0 auto 0 auto;
+  /*float: right;*/
   white-space: nowrap;
 }
 
 .chatBox {
+  max-width: 50%;
+  display: block;
+  margin: 0 auto 0 auto;
   background-color: grey;
   height: 505px;
   white-space: nowrap;
@@ -296,8 +302,8 @@
   overflow-y: overlay;
 }
 
-.keyContainer{
- padding: 1em 0;
+.keyContainer {
+  padding: 1em 0;
 }
 
 .uniqueKey {

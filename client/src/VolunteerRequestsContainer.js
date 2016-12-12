@@ -11,11 +11,13 @@ class VolunteerRequestContainer extends Component {
   }
   render() {
     return (
-      <div className="display">
+      <div className="appAndKey">
         <div className="keyContainer">Share this key with the people you like enough to get food for: <span className="uniqueKey"> {this.props.group._id}</span></div>
+      <div className="display">
         <Chat user={this.props.user} group={this.props.group} />
         <PickUpOffers user={this.props.user} group={this.props.group} selectDifferentGroup={this.props.selectDifferentGroup}  />
       </div>
+    </div>
     )
   }
 };
