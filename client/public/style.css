@@ -284,6 +284,7 @@
   border: 1px solid black;
   background: transparent;
   padding: 0px !important;
+  overflow-y: overlay;
 }
 
 .keyContainer{
@@ -302,5 +303,3 @@
 .yellow-background {
   background-color: #FFC202;
 }
-
-
