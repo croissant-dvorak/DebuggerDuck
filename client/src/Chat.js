@@ -54,14 +54,14 @@ class Chat extends Component {
         user_id: this.props.user._id,
         userName: this.props.user.userName,
         picture: this.props.user.picture,
-        text: $('.chatInput input').val()
+        text: $('.chatBox input').val()
       }})
       .then(response => {
       })
       .catch(error => {
         console.log('Error while posting message: ', error);
       });
-    $('.chatInput input').val('');
+    $('.chatBox input').val('');
     this.props.selectGroup(this.props.group._id);
   }
 
