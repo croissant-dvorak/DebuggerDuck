@@ -177,6 +177,7 @@ class App extends Component {
           <div>
           <NavBar
           loggedIn={true}
+          updateUserInfo={this.updateUserInfo}
           postLogout={this.postLogout.bind(this)}
           postLogin={this.postLogin.bind(this)}
           user={this.state.user} />

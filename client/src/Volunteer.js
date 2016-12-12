@@ -13,7 +13,6 @@ class Volunteer extends Component {
     var socket = io;
     // io.createRoom('2233')
     super(props);
-    console.log('PROP', this.props.pickup)
     this.state = {
       //This info has been funneled down from volunteerRequestContainer, which was funneled down from app.js
       //we set text as '' because nothing has been entered yet.
@@ -22,10 +21,11 @@ class Volunteer extends Component {
       //It can be added to by the user by typing into the inputs and submitting.
       requests:this.props.pickup.requests,
       count:0,
-      volunteer: this.props.pickup.order_user
+      volunteer: this.props.pickup.orderer_userName
     };
 
     this.postRequest = this.postRequest.bind(this);
+    this.sendSMS = this.sendSMS.bind(this);
   }
   onTextChange(event) {
     //every time the user types a new letter, the state is changed to the current input
@@ -62,18 +62,32 @@ class Volunteer extends Component {
   }
 
   sendSMS (){
-    //CASEY WRITE THE SMS FUNCTION HERE!!!!!!!!!!!
+    var message = this.state.requests.reduce((p, c) => p + '\n' + c.userName + ':' + c.text, 'Requests:')
+    axios.post('/api/group/' + this.props.group._id + '/text', {
+      data:{
+        message: message,
+        nums: [this.props.user.phoneNumber],
+      }
+    })
+    .then(response => {
+      console.log('text sent')
+    })
+    .catch(error => {
+      console.log('Error while submitting food request:', error);
+    })
   }
+
   render() {
     var renderTextButton;
-  if(this.state.volunteer === this.props.user.userName) {
-    renderTextButton = <SMSButton sendSMS={this.props.renderSmsButton} />
-  }
-   
+    if(this.state.volunteer === this.props.user.userName) {
+      renderTextButton = <SMSButton sendSMS={this.sendSMS} />
+    } else {
+      console.log('don\'t offer sms!')
+    }
 
   	return (
       <div>
-      <BackButton viewOrders={this.props.viewOrders}/>
+        <BackButton viewOrders={this.props.viewOrders} />
         <div className='volunteer-div'>
           <img className='small-profile-pic' src={this.props.pickup.picture}/>
           {this.props.pickup.orderer_userName} is going to {this.props.pickup.location} at {this.props.pickup.time}.
@@ -88,7 +102,7 @@ class Volunteer extends Component {
            <RequestModal onSubmit={this.onSubmit.bind(this)}/>
         </div>
         {renderTextButton}
-        </div>
+      </div>
   );
  }
 

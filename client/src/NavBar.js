@@ -65,7 +65,8 @@ class NavBar extends Component {
     this.hideModal();
     axios.put('/api/user/' + this.props.user._id, {data:{"phoneNumber": this.state.phoneEntry}})
       .then( response => {
-        
+        this.props.user.phoneNumber = this.state.phoneEntry;
+        // this.props.updateUserInfo(this.props.user);
       })
       .catch(error => {
         console.log('Error while adding phone number:', error);

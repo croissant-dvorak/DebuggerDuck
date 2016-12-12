@@ -10,7 +10,6 @@ import Order from './order'
 class PickUpOffers extends Component {
   constructor(props) {
     super(props);
-    console.log('prrrrrrrrrro', this.props)
     var socket = io();
     socket.emit('createRoom', this.props.group._id)
     socket.on('addMessage', function(mess) {

@@ -1,3 +1,11 @@
+var AWS = require('aws-sdk');
+var sns = new AWS.SNS({
+  apiVersion: '2010-03-31',
+  region: 'us-east-1',
+  accessKeyId: require('./config').aws.accessKeyId,
+  secretAccessKey: require('./config').aws.secretAccessKey,
+});
+
 module.exports.send = function textList(nums, message, cb){
   for (var i = 0; i < nums.length; i++) {
     var params = {

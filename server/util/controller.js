@@ -23,7 +23,6 @@ module.exports = {
         })
     },
     put: (req, res) => {
-      console.log('update user', req.params.userId, 'with', req.body.data)
       db.User.update({_id: req.params.userId}, req.body.data)
         .then((user) => {
           console.log('after update', user);
@@ -174,7 +173,7 @@ module.exports = {
     sms.send(req.body.data.nums, req.body.data.message, function(err, data){
       if (err) {
         res.status(400).send(err)
-        console.log(err, err.stack); // an error occurred
+        console.log(err, err); // an error occurred
       } else {
         res.status(201).send(data)
         console.log(data);           // successful response
