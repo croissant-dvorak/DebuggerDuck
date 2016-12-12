@@ -14,6 +14,7 @@ const controller = require('./controller');
 //router.get('/profile', controller.login.profile);
 
 router.get('/user', controller.user.get);
+router.put('/user/:userId', controller.user.put);
 router.get('/user/:userId/group', controller.user.group.get);
 router.post('/user/:userId/group', controller.user.group.post);
 router.get('/user/loggedin', controller.user.loggedIn);
@@ -24,6 +25,7 @@ router.get('/group/:groupId', controller.group.get);
 router.post('/group', controller.group.post);
 router.get('/group/:groupId/volunteer', controller.group.volunteer.get);
 router.post('/group/:groupId/message', controller.group.postMessage);
+router.post('/group/:groupId/text', controller.group.postText);
 
 router.delete('/delete-group', controller.group.delete);
 
