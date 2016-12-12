@@ -72,7 +72,7 @@ class Chat extends Component {
 }
         </div>
         <div className="inputBox">
-          <input type="text"/>
+          <input type="text" className="text"/>
           <input type="button" value="Send Message" onClick={function() {
             return this.submitMessage(event)
           }.bind(this)}/>

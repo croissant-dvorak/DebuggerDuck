@@ -270,11 +270,11 @@
   display: block;
   margin: 0 auto 0 auto;
   background-color: grey;
-  height: 505px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  padding: 0px !important;
+  padding: 10px;
+  border-radius: 10px;
 }
 
 .chatInput {
@@ -294,12 +294,29 @@
   /* display: block; */
 }
 
+.inputBox {
+  display: flex;
+  width: 100%;
+}
+
+.inputBox .text {
+  width: 100%;
+}
+
+.message {
+  background: white;
+  margin: 0 0 5px 0;
+padding: 2px;
+}
+
 .messagesBox {
   height: 94%;
-  border: 1px solid black;
+  height: 500px;
+  margin: 0 0 15px 0;
   background: transparent;
   padding: 0px !important;
   overflow-y: overlay;
+  overflow-x: hidden;
 }
 
 .keyContainer {
